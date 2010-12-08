@@ -17,7 +17,7 @@ More information on the Jekyll plugin architecture is available from the "Jekyll
 
 <hr/>
 
-h1. Plugin _generate_categories.rb_
+h1. generate_categories.rb
 
 A generator that creates category pages for Jekyll sites (for example our "plugin category":http://recursive-design.com/blog/category/plugin/).
 
@@ -41,8 +41,8 @@ h2. Available _config.yml settings
 
 <hr/>
 
-h1. Plugin _generate_projects.rb_
+h1. generate_projects.rb
 
 <hr/>
 
-h1. Plugin _generate_sitemap.rb_
+h1. generate_sitemap.rb
