@@ -30,14 +30,14 @@ To use it, simply drop this script into the ==_plugins== directory of your Jekyl
 layout: default
 ---
 
-<h1 class="category">&#123;&#123; page.title &#125;&#125;</h1>
-<ul class="posts">
+&lt;h1 class="category">&#123;&#123; page.title &#125;&#125;&lt;/h1&gt;
+&lt;ul class="posts"&gt;
 &#123;% for post in site.categories[page.category] %&#125;
-    <div>&#123;&#123; post.date | date_to_html_string &#125;&#125;</div>
-    <h2><a href="{{ post.url }}">&#123;&#123; post.title &#125;&#125;</a></h2>
-    <div class="categories">Filed under &#123;&#123; post.categories | category_links &#125;&#125;</div>
+    &lt;div>&#123;&#123; post.date | date_to_html_string &#125;&#125;</div&gt;
+    &lt;h2&gt;&lt;a href="&#123;&#123; post.url &#125;&#125;">&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/h2&gt;
+    &lt;div class="categories">Filed under &#123;&#123; post.categories | category_links &#125;&#125;&lt;/div&gt;
 &#123;% endfor %&#125;
-</ul>
+&lt;/ul>
 
 You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you can change the HTML above as you see fit.
 
