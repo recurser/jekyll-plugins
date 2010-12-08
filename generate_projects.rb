@@ -6,24 +6,36 @@
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 #
-# Generator that creates project pages for jekyll sites from github repositories. To use it, create
-# a *_projects* folder in the base of your jekyll site. This folder should contain .yml files
-# describing how to build a page for your project. Here is an example (jekyll-generators.yml) :
+# Generator that creates project pages for jekyll sites from github repositories. This was inspired
+# by the project pages on GitHub, which use the project README file as the index page. It takes git 
+# repositories, and automatically builds project pages for them using the README file, along with 
+# downloadable zipped copies of the projects themselves (for example, the project page for this
+# "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with 
+# this plugin).
 #
-# layout: project
-# title: "Jekyll Generators"
-# repository: git://recursive-design.com/jekyll-generators.git
+# To use it, simply drop this script into the _plugins directory of your Jekyll site. Next, create a 
+# *_projects* folder in the base of your jekyll site. This folder should contain .yml files describing 
+# how to build a page for your project. Here is an example jekyll-plugins.yml (note: you should remove 
+# the leading '# ' characters):
 #
-# When you compile your jekyll site, this plugin will download the git repository of each project
+# ================================== COPY BELOW THIS LINE ==================================
+# layout:     default
+# title:      Jekyll Plugins
+# repository: git://recursive-design.com/jekyll-plugins.git
+# published:  true
+# ================================== COPY ABOVE THIS LINE ==================================
+#
+# When you compile your jekyll site, the plugin will download the git repository of each project
 # in your _projects folder, create an index page from the README (using the specified layout),
 # and create a downloadable .zip file of the project. The goal is to automate the construction of
 # online project pages, keep them in sync with README documentation, and provide an up-to-date .zip
 # for download.
 #
-# Your git repository should contain:
+# Required files :
+# Your project's git repository should contain:
 # - README:       The contents of this will be used as the body of your project page will be created 
-#                 from. Any extension other than .markdown, .textile or .html will be treated as plain 
-#                 text.
+#                 from. Any extension other than .markdown, .textile or .html will be treated as a 
+#                 .textile file.
 # - versions.txt: Contains the version string (eg 1.0.0). Used to create the downloadable zip-file 
 #                 (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will 
 #                 be used for the version.

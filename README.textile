@@ -43,6 +43,46 @@ h2. Available _config.yml settings
 
 h1. generate_projects.rb
 
+A generator that creates project pages for Jekyll sites from github repositories. This was inspired by the project pages on GitHub, which use the project README file as the index page. It takes git repositories, and automatically builds project pages for them using the README file, along with downloadable zipped copies of the projects themselves (for example, the project page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with this plugin).
+
+h2. Usage
+
+To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. Next, create a <em>_projects</em> folder in the base of your Jekyll site. This folder should contain _.yml_ files describing how to build a page for your project. Here is an example (<em>_projects/jekyll-plugins.yml</em>):
+
+{% highlight yaml %}
+layout:     default
+title:      Jekyll Plugins
+repository: git://recursive-design.com/jekyll-plugins.git
+published:  true
+{% endhighlight %}
+
+h2. How it works
+
+When you compile your Jekyll site, the plugin will download the git repository of each project in your _projects folder, create an index page from the README file (using the specified layout), and create a downloadable .zip file of the project. The goal is to automate the construction of online project pages, keep them in sync with README documentation, and provide an up-to-date .zip for download.
+
+h2. Required files
+
+Your project's git repository should contain:
+
+* *README* : The contents of this will be used as the body of your project page will be created from. Any extension other than .markdown, .textile or .html will be treated as a .textile file.
+* *versions.txt* : Contains the version string (eg 1.0.0). Used to create the downloadable zip-file (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will be used for the version.
+
+h2. Required gems
+
+* git (>= 1.2.5)
+* rubyzip (>= 0.9.4)
+
+h2. Available _config.yml settings
+
+* *project_dir* : The subfolder to compile projects to (default is 'projects').
+
+h2. Available YAML settings
+
+* *repository* : Git repository of your project (required).
+* *layout* :     Layout to use when creating the project page.
+* *title* :      Project title, which can be accessed in the layout.
+* *published* :  Project won't be published if this is false.
+
 <hr/>
 
 h1. generate_sitemap.rb
