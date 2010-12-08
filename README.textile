@@ -9,7 +9,7 @@ The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki
 
 h2. Installation
 
-To install the plugins simply put them in a directory named __plugins_ in your project directory.
+To install the plugins simply put them in a directory named <em>_plugins</em> in your project directory.
 
 h2. More information
 
@@ -25,7 +25,7 @@ h2. Usage
 
 To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
 
-You should also copy the _category_index.html_ file from the _layouts_ directory of this _jekyll-plugins_ project to the __layouts_ directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+You should also copy the _category_index.html_ file from the _layouts_ directory of this _jekyll-plugins_ project to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
 When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
 
