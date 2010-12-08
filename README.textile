@@ -15,7 +15,7 @@ h2. More information
 
 More information on the Jekyll plugin architecture is available from the "Jekyll wiki":https://github.com/mojombo/jekyll/wiki/Plugins.
 
-<hr/>
+--
 
 h2. generate_categories.rb
 
@@ -25,10 +25,9 @@ h3. Usage
 
 To use it, simply drop this script into the ==_plugins== directory of your Jekyll site. You should also create a file called 'category_index.html' in the _layouts directory of your jekyll site with the following contents:
 
-
----
+==---==
 layout: default
----
+==---==
 
 &lt;h1 class="category">&#123;&#123; page.title &#125;&#125;&lt;/h1&gt;
 &lt;ul class="posts"&gt;
