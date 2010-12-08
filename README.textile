@@ -17,11 +17,11 @@ More information on the Jekyll plugin architecture is available from the "Jekyll
 
 <hr/>
 
-h2. Plugin _generate_categories.rb_
+h1. Plugin _generate_categories.rb_
 
 A generator that creates category pages for Jekyll sites (for example our "plugin category":http://recursive-design.com/blog/category/plugin/).
 
-h3. Usage
+h2. Usage
 
 To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
 
@@ -29,16 +29,20 @@ You should also copy the _category_index.html_ file from the _layouts_ folder of
 
 When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
 
-h3. Included filters
+h2. Included filters
 
 * *category_links* : Outputs the list of categories as comma-separated links.
 * *date_to_html_string* : Outputs the post.date as formatted html, with hooks for CSS styling.
 
-h3. Available _config.yml settings
+h2. Available _config.yml settings
 
 * *category_dir* : The subfolder to build category pages in (default is 'categories').
 * *category_title_prefix* : The string used before the category name in the page title (default is 'Category: ').
 
-h2. generate_projects.rb
+<hr/>
 
-h2. generate_sitemap.rb
+h1. Plugin _generate_projects.rb_
+
+<hr/>
+
+h1. Plugin _generate_sitemap.rb_
