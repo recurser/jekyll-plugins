@@ -25,20 +25,19 @@ h3. Usage
 
 To use it, simply drop this script into the ==_plugins== directory of your Jekyll site. You should also create a file called 'category_index.html' in the _layouts directory of your jekyll site with the following contents:
 
-{% highlight html %}
+
 ---
 layout: default
 ---
 
-<h1 class="category">{{ page.lbb }} page. page.title {{ page.rbb }}</h1>
+<h1 class="category">&#123;&#123; page.title &#125;&#125;</h1>
 <ul class="posts">
-{{ page.lpb }} for post in site.categories[page.category] {{ page.rpb }}
-    <div>{{ page.lbb }} post.date | date_to_html_string {{ page.rbb }}</div>
-    <h2><a href="{{ post.url }}">{{ page.lbb }} post.title {{ page.rbb }}</a></h2>
-    <div class="categories">Filed under {{ page.lbb }} post.categories | category_links {{ page.rbb }}</div>
-{{ page.lpb }} endfor {{ page.rpb }}
+&#123;% for post in site.categories[page.category] %&#125;
+    <div>&#123;&#123; post.date | date_to_html_string &#125;&#125;</div>
+    <h2><a href="{{ post.url }}">&#123;&#123; post.title &#125;&#125;</a></h2>
+    <div class="categories">Filed under &#123;&#123; post.categories | category_links &#125;&#125;</div>
+&#123;% endfor %&#125;
 </ul>
-{% endhighlight %}
 
 You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you can change the HTML above as you see fit.
 
