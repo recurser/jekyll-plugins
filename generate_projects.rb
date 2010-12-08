@@ -91,21 +91,11 @@ module Jekyll
       # Try to get the readme data for this path.
       self.content = File.read(readme)
       
-      self.content = escape_liquid_tags(self.content)
-      
       @name = "index.#{ext}"
       self.process(@name)
     end
     
     private
-    
-    def escape_liquid_tags(str)
-      str.each do |line|
-        
-      end
-      
-      return str
-    end
     
     # Loads the .yml config file for this project.
     #
