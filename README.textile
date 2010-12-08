@@ -5,7 +5,7 @@ This is a collection of "Jekyll":https://github.com/mojombo/jekyll plugins and g
 
 h2. License
 
-The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki/MIT_license. See the "License.txt":http://recursive-design.com/code/p/from-the-cache/source/tree/master/LICENSE.txt file for details.
+The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki/MIT_license. See the "License.txt":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/LICENSE.txt file for details.
 
 h2. Installation
 
