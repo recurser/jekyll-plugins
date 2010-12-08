@@ -25,7 +25,7 @@ h3. Usage
 
 To use it, simply drop this script into the ==_plugins== directory of your Jekyll site. You should also create a file called 'category_index.html' in the _layouts directory of your jekyll site with the following contents:
 
-{% highlight html %}
+==
 ---
 layout: default
 ---
@@ -38,7 +38,7 @@ layout: default
     <div class="categories">Filed under {{ post.categories | category_links }}</div>
 {% endfor %}
 </ul>
-{% endhighlight %}
+==
 
 You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you can change the HTML above as you see fit.
 
