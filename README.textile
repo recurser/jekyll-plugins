@@ -95,12 +95,12 @@ h2. Available _config.yml settings
 
 h1. generate_sitemap.rb
 
-A generator that creates a _sitemap.xml_ page for Jekyll sites, suitable for submission to Google etc (for example the _sitemap.xml_ for "recursive-design.com":http://recursive-design.com/sitemap.xml).
+A simple generator that creates a _sitemap.xml_ page for Jekyll sites, suitable for submission to Google etc (for example the _sitemap.xml_ for "recursive-design.com":http://recursive-design.com/sitemap.xml).
 
 h2. Usage
 
-To use it, simply drop the _generate_sitemap.rb_ script into the _plugins directory of your Jekyll site.
+To use it, simply drop the _generate_sitemap.rb_ script into the <em>_plugins</em> directory of your Jekyll site.
 
 h2. How it works
 
-When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in sitemap.xml for each one.
+When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in _sitemap.xml_ for each one.
