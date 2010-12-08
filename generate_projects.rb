@@ -6,12 +6,13 @@
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 #
-# Generator that creates project pages for jekyll sites from github repositories. This was inspired
-# by the project pages on GitHub, which use the project README file as the index page. It takes git 
-# repositories, and automatically builds project pages for them using the README file, along with 
-# downloadable zipped copies of the projects themselves (for example, the project page for this
-# "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with 
-# this plugin).
+# Generator that creates project pages for jekyll sites from github repositories. 
+#
+# This was inspired by the project pages on GitHub, which use the project README file as the index 
+# page. It takes git repositories, and automatically builds project pages for them using the README 
+# file, along with downloadable zipped copies of the projects themselves (for example, the project 
+# page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is 
+# auto-generated with this plugin).
 #
 # To use it, simply drop this script into the _plugins directory of your Jekyll site. Next, create a 
 # *_projects* folder in the base of your jekyll site. This folder should contain .yml files describing 

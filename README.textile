@@ -17,33 +17,11 @@ More information on the Jekyll plugin architecture is available from the "Jekyll
 
 <hr/>
 
-h1. generate_categories.rb
-
-A generator that creates category pages for Jekyll sites (for example our "plugin category":http://recursive-design.com/blog/category/plugin/).
-
-h2. Usage
-
-To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
-
-You should also copy the "category_index.html":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/layouts/category_index.html file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
-
-When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
-
-h2. Included filters
-
-* *category_links* : Outputs the list of categories as comma-separated links.
-* *date_to_html_string* : Outputs the post.date as formatted html, with hooks for CSS styling.
-
-h2. Available _config.yml settings
-
-* *category_dir* : The subfolder to build category pages in (default is 'categories').
-* *category_title_prefix* : The string used before the category name in the page title (default is 'Category: ').
-
-<hr/>
-
 h1. generate_projects.rb
 
-A generator that creates project pages for Jekyll sites from github repositories. This was inspired by the project pages on GitHub, which use the project README file as the index page. It takes git repositories, and automatically builds project pages for them using the README file, along with downloadable zipped copies of the projects themselves (for example, the project page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with this plugin).
+A generator that creates project pages for Jekyll sites from github repositories. 
+
+This was inspired by the project pages on GitHub, which use the project README file as the index page. It takes git repositories, and automatically builds project pages for them using the _README_ file, along with downloadable zipped copies of the projects themselves (for example, the project page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with this plugin).
 
 h2. Usage
 
@@ -58,7 +36,7 @@ published:  true
 
 h2. How it works
 
-When you compile your Jekyll site, the plugin will download the git repository of each project in your _projects folder, create an index page from the README file (using the specified layout), and create a downloadable .zip file of the project. The goal is to automate the construction of online project pages, keep them in sync with README documentation, and provide an up-to-date .zip for download.
+When you compile your Jekyll site, the plugin will download the git repository of each project in your <em>_projects</em> folder, create an index page from the README file (using the specified layout), and create a downloadable .zip file of the project. The goal is to automate the construction of online project pages, keep them in sync with README documentation, and provide an up-to-date .zip for download.
 
 h2. Required files
 
@@ -82,6 +60,30 @@ h2. Available YAML settings
 * *layout* :     Layout to use when creating the project page.
 * *title* :      Project title, which can be accessed in the layout.
 * *published* :  Project won't be published if this is false.
+
+<hr/>
+
+h1. generate_categories.rb
+
+A generator that creates category pages for Jekyll sites (for example our "plugin category":http://recursive-design.com/blog/category/plugin/).
+
+h2. Usage
+
+To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
+
+You should also copy the "category_index.html":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/layouts/category_index.html file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+
+When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
+
+h2. Included filters
+
+* *category_links* : Outputs the list of categories as comma-separated links.
+* *date_to_html_string* : Outputs the post.date as formatted html, with hooks for CSS styling.
+
+h2. Available _config.yml settings
+
+* *category_dir* : The subfolder to build category pages in (default is 'categories').
+* *category_title_prefix* : The string used before the category name in the page title (default is 'Category: ').
 
 <hr/>
 
