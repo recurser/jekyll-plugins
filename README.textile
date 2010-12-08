@@ -1,0 +1,59 @@
+
+h2. About
+
+This is a collection of "Jekyll":https://github.com/mojombo/jekyll plugins and generators that I've written for use on "recursive-design.com":http://recursive-design.com/. 
+
+h2. License
+
+The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki/MIT_license. See the "License.txt":http://recursive-design.com/code/p/from-the-cache/source/tree/master/LICENSE.txt file for details.
+
+h2. Installation
+
+To install the plugins simply put them in a folder named _plugins in your project directory.
+
+h2. More information
+
+More information on the Jekyll plugin architecture is available from the "Jekyll wiki":https://github.com/mojombo/jekyll/wiki/Plugins.
+
+<hr/>
+
+h2. generate_categories.rb
+
+A generator that creates category pages for Jekyll sites (for example our "plugin category":http://recursive-design.com/blog/category/plugin/).
+
+h3. Usage
+
+To use it, simply drop this script into the _plugins directory of your Jekyll site. You should also create a file called 'category_index.html' in the _layouts directory of your jekyll site with the following contents:
+
+{% highlight html %}
+---
+layout: default
+---
+
+<h1 class="category">{{ page.title }}</h1>
+<ul class="posts">
+{% for post in site.categories[page.category] %}
+    <div>{{ post.date | date_to_html_string }}</div>
+    <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
+    <div class="categories">Filed under {{ post.categories | category_links }}</div>
+{% endfor %}
+</ul>
+{% endhighlight %}
+
+You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you can change the HTML above as you see fit.
+
+When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
+
+h3. Included filters
+
+# *category_links* : Outputs the list of categories as comma-separated links.
+# *date_to_html_string* : Outputs the post.date as formatted html, with hooks for CSS styling.
+
+h3. Available _config.yml settings
+
+# *category_dir* : The subfolder to build category pages in (default is 'categories').
+# *category_title_prefix* : The string used before the category name in the page title (default is 'Category: ').
+
+h2. generate_projects.rb
+
+h2. generate_sitemap.rb
