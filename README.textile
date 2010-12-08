@@ -23,7 +23,7 @@ More information on the Jekyll plugin architecture is available from the "Jekyll
 
 h1. generate_projects.rb
 
-A generator that creates project pages for Jekyll sites from github repositories. 
+A generator that creates project pages for Jekyll sites from git repositories. 
 
 This was inspired by the project pages on GitHub, which use the project _README_ file as the index page. It takes git repositories, and automatically builds project pages for them using the _README_ file, along with downloadable zipped copies of the projects themselves (for example, the project page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is auto-generated with this plugin).
 
@@ -40,7 +40,7 @@ published:  true
 
 h2. How it works
 
-When you compile your Jekyll site, the plugin will download the git repository of each project in your <em>_projects</em> folder, create an index page from the _README_ file (using the specified layout), and create a downloadable _.zip_ file of the project. The goal is to automate the construction of online project pages, keep them in sync with README documentation, and provide an up-to-date zip archive for download.
+When you compile your Jekyll site, the plugin will download the git repository of each project in your <em>_projects</em> folder, create an index page from the _README_ file (using the specified layout), and create a downloadable _.zip_ file of the project. The goal is to automate the construction of online project pages, keep them in sync with _README_ documentation, and provide an up-to-date zip archive for download.
 
 h2. Required files
 

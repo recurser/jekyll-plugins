@@ -6,7 +6,7 @@
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 #
-# Generator that creates project pages for jekyll sites from github repositories. 
+# Generator that creates project pages for jekyll sites from git repositories. 
 #
 # This was inspired by the project pages on GitHub, which use the project README file as the index 
 # page. It takes git repositories, and automatically builds project pages for them using the README 
