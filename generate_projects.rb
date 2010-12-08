@@ -37,7 +37,7 @@
 # - README:       The contents of this will be used as the body of your project page will be created 
 #                 from. Any extension other than .markdown, .textile or .html will be treated as a 
 #                 .textile file.
-# - versions.txt: Contains the version string (eg 1.0.0). Used to create the downloadable zip-file 
+# - versions.txt: Contains the version string (eg 1.0.0). Used when naming the downloadable zip-file 
 #                 (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will 
 #                 be used for the version.
 #

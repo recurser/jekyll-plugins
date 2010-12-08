@@ -11,7 +11,11 @@ h2. Installation
 
 To install the plugins simply put them in a directory named <em>_plugins</em> in your project directory.
 
-h2. More information
+h2. Bug Reports
+
+If you come across any problems, please "create a ticket":http://recursive-design.com/code/p/jekyll-plugins/issues/ and we'll try to get it fixed as soon as possible.
+
+h2. Want to make your own plugins?
 
 More information on the Jekyll plugin architecture is available from the "Jekyll wiki":https://github.com/mojombo/jekyll/wiki/Plugins.
 
@@ -25,7 +29,7 @@ This was inspired by the project pages on GitHub, which use the project README f
 
 h2. Usage
 
-To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. Next, create a <em>_projects</em> folder in the base of your Jekyll site. This folder should contain _.yml_ files describing how to build a page for your project. Here is an example (<em>_projects/jekyll-plugins.yml</em>):
+To use it, simply drop the _generate_projects.rb_ script into the ==_plugins== directory of your Jekyll site. Next, create a <em>_projects</em> folder in the base of your Jekyll site. This folder should contain _.yml_ files describing how to build a page for your project. Here is an example (<em>_projects/jekyll-plugins.yml</em>):
 
 {% highlight yaml %}
 layout:     default
@@ -43,7 +47,7 @@ h2. Required files
 Your project's git repository should contain:
 
 * *README* : The contents of this will be used as the body of your project page will be created from. Any extension other than .markdown, .textile or .html will be treated as a .textile file.
-* *versions.txt* : Contains the version string (eg 1.0.0). Used to create the downloadable zip-file (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will be used for the version.
+* *versions.txt* : Contains the version string (eg 1.0.0). Used when naming the downloadable zip-file (optional). If the _version.txt_ file is not available, a _YYYYMMDDHHMM_ timestamp will be used for the version instead.
 
 h2. Required gems
 
@@ -73,6 +77,8 @@ To use it, simply drop the _generate_categories.rb_ script into the ==_plugins==
 
 You should also copy the "category_index.html":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/layouts/category_index.html file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
+h2. How it works
+
 When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
 
 h2. Included filters
@@ -88,3 +94,13 @@ h2. Available _config.yml settings
 <hr/>
 
 h1. generate_sitemap.rb
+
+A generator that creates a _sitemap.xml_ page for Jekyll sites, suitable for submission to Google etc (for example the _sitemap.xml_ for "recursive-design.com":http://recursive-design.com/sitemap.xml).
+
+h2. Usage
+
+To use it, simply drop the _generate_sitemap.rb_ script into the _plugins directory of your Jekyll site.
+
+h2. How it works
+
+When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in sitemap.xml for each one.
