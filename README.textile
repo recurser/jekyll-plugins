@@ -23,22 +23,9 @@ A generator that creates category pages for Jekyll sites (for example our "plugi
 
 h3. Usage
 
-To use it, simply drop this script into the ==_plugins== directory of your Jekyll site. You should also create a file called 'category_index.html' in the _layouts directory of your jekyll site with the following contents:
+To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
 
-==---==
-layout: default
-==---==
-
-&lt;h1 class="category">&#123;&#123; page.title &#125;&#125;&lt;/h1&gt;
-&lt;ul class="posts"&gt;
-&#123;% for post in site.categories[page.category] %&#125;
-    &lt;div>&#123;&#123; post.date | date_to_html_string &#125;&#125;</div&gt;
-    &lt;h2&gt;&lt;a href="&#123;&#123; post.url &#125;&#125;">&#123;&#123; post.title &#125;&#125;&lt;/a&gt;&lt;/h2&gt;
-    &lt;div class="categories">Filed under &#123;&#123; post.categories | category_links &#125;&#125;&lt;/div&gt;
-&#123;% endfor %&#125;
-&lt;/ul>
-
-You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you can change the HTML above as you see fit.
+You should also copy the _category_index.html_ file from the _layouts_ folder of the _jekyll-plugins_ project to the _layouts folder of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
 When you compile your Jekyll site, this plugin will loop through the list of categories in your site, and use the layout above to generate a page for each one with a list of links to the individual posts.
 
