@@ -29,8 +29,8 @@
 # When you compile your jekyll site, the plugin will download the git repository of each project
 # in your _projects folder, create an index page from the README (using the specified layout),
 # and create a downloadable .zip file of the project. The goal is to automate the construction of
-# online project pages, keep them in sync with README documentation, and provide an up-to-date .zip
-# for download.
+# online project pages, keep them in sync with README documentation, and provide an up-to-date zip
+# archive for download.
 #
 # Required files :
 # Your project's git repository should contain:
