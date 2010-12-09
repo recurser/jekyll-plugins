@@ -72,7 +72,7 @@ module Jekyll
       # First, try to find any stand-alone pages.      
       site.pages.each{ |page|
         path     = page.subfolder + '/' + page.name
-        mod_date = File.ctime(site.source + path)
+        mod_date = File.mtime(site.source + path)
 
   			# Remove the trailing 'index.html' if there is one, and just output the folder name.
   			if path=~/index.html$/
@@ -103,6 +103,8 @@ module Jekyll
     #  +path+ is the URL path to the page.
     #  +date+ is the date the file was modified (in the case of regular pages), or published (for blog posts).
     def entry(path, date)
+        # Force extensions to .html from markdown, textile.
+        path = path.gsub(/\.(markdown|textile)$/i, '.html')
       "
   <url>
       <loc>#{BASE_URL}#{path}</loc>
