@@ -60,8 +60,7 @@ require 'git'
 require 'zip/zip'
 require 'zip/zipfilesystem'
 	
-module Jekyll
-  
+module Jekyll  
   
   # The ProjectIndex class creates a single project page for the specified project.
   class ProjectIndex < Page
@@ -97,14 +96,14 @@ module Jekyll
       
       # Decide the extension - if it's not textile, markdown or HTML treat it as textile.
       ext = File.extname(readme)
-      unless ['textile', 'markdown', 'html'].include?(ext)
+      unless ['.textile', '.markdown', '.html'].include?(ext)
         ext = '.textile'
       end
       
       # Try to get the readme data for this path.
       self.content = File.read(readme)
       
-      @name = "index.#{ext}"
+      @name = "index#{ext}"
       self.process(@name)
     end
     
@@ -180,7 +179,8 @@ module Jekyll
       unless version
         version = Time.now.strftime('%Y%m%d%H%M') 
       end
-      bundle_filename = File.join(target_folder, "#{project_name}.#{version}.zip")
+      zip_filename    = "#{project_name}.#{version}.zip"
+      bundle_filename = File.join(target_folder, zip_filename)
       puts "Creating #{bundle_filename}"
       
       # Remove the bundle if it already exists.
@@ -198,6 +198,9 @@ module Jekyll
           # Add the file to the bundle.
           zipfile.add(dest, path) if dest
         end 
+        
+        # Add a static file entry for the zip file, otherwise Site::cleanup will remove it.
+        @site.static_files << Jekyll::StaticZipFile.new(@site, @site.dest, @dir, zip_filename)
       end
       
       # Set permissions.
@@ -252,6 +255,8 @@ module Jekyll
       if index.data['published']
         index.render(self.layouts, site_payload)
         index.write(self.dest)
+        # Record the fact that this page has been added, otherwise Site::cleanup will remove it.
+        self.pages << index
       end
     end
     
@@ -267,6 +272,16 @@ module Jekyll
       end
       
       projects
+    end
+    
+  end
+  
+
+  # Sub-class Jekyll::StaticFile to allow recovery from an unimportant exception when writing zip files.
+  class StaticZipFile < StaticFile
+    def write(dest)
+      super(dest) rescue ArgumentError
+      true
     end
   end
   

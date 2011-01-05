@@ -104,3 +104,11 @@ To use it, simply drop the _generate_sitemap.rb_ script into the <em>_plugins</e
 h2. How it works
 
 When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in _sitemap.xml_ for each one.
+
+<hr/>
+
+h1. Change history
+
+* *Version 0.1.2 (2011-01-06)* : Add generated pages to the Site::pages list, to stop them being deleted automatically by Site::cleanup(); Fixed a file extension problem with _generate_projects.rb_. 
+* *Version 0.1.1 (2010-12-10)* : Use _mtime_ instead of _ctime_ for sitemap modification dates; Fixed sitemap extension bug.
+* *Version 0.1.0 (2010-12-08)* : Initial release.

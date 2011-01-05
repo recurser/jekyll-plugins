@@ -61,10 +61,13 @@ module Jekyll
       self.process(@name)
       # Read the YAML data from the layout page.
       self.read_yaml(File.join(base, '_layouts'), 'category_index.html')
-      self.data['category'] = category
+      self.data['category']    = category
       # Set the title for this page.
-      category_title_prefix = site.config['category_title_prefix'] || 'Category: '
-      self.data['title']    = "#{category_title_prefix}#{category}"
+      title_prefix             = site.config['category_title_prefix'] || 'Category: '
+      self.data['title']       = "#{title_prefix}#{category}"
+      # Set the meta-description for this page.
+      meta_description_prefix  = site.config['category_meta_description_prefix'] || 'Category: '
+      self.data['description'] = "#{meta_description_prefix}#{category}"
     end
     
   end
@@ -82,6 +85,8 @@ module Jekyll
       index = CategoryIndex.new(self, self.source, category_dir, category)
       index.render(self.layouts, site_payload)
       index.write(self.dest)
+      # Record the fact that this page has been added, otherwise Site::cleanup will remove it.
+      self.pages << index
     end
     
     # Loops through the list of category pages and processes each one.

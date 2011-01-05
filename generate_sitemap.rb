@@ -19,11 +19,21 @@ require 'pathname'
 module Jekyll
 
 
-  # Monkey-patch an accessor for a pages containing folder, since 
+  # Monkey-patch an accessor for a page's containing folder, since 
   # we need it to generate the sitemap.
   class Page
     def subfolder
       @dir
+    end
+  end
+  
+
+  # Sub-class Jekyll::StaticFile to allow recovery from unimportant exception 
+  # when writing the sitemap file.
+  class StaticSitemapFile < StaticFile
+    def write(dest)
+      super(dest) rescue ArgumentError
+      true
     end
   end
   
@@ -54,6 +64,9 @@ module Jekyll
         f.write(generate_footer())
         f.close
       end
+      
+      # Add a static file entry for the zip file, otherwise Site::cleanup will remove it.
+      site.static_files << Jekyll::StaticSitemapFile.new(site, site.dest, '/', 'sitemap.xml')
     end
 
     private
