@@ -1,7 +1,7 @@
 # Jekyll project page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.0.1 (201009281254)
+# Version: 0.1.3 (201101061053)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
@@ -200,7 +200,7 @@ module Jekyll
         end 
         
         # Add a static file entry for the zip file, otherwise Site::cleanup will remove it.
-        @site.static_files << Jekyll::StaticZipFile.new(@site, @site.dest, @dir, zip_filename)
+        @site.static_files << Jekyll::StaticProjectFile.new(@site, @site.dest, @dir, zip_filename)
       end
       
       # Set permissions.
@@ -256,7 +256,7 @@ module Jekyll
         index.render(self.layouts, site_payload)
         index.write(self.dest)
         # Record the fact that this page has been added, otherwise Site::cleanup will remove it.
-        self.pages << index
+        self.static_files << Jekyll::StaticProjectFile.new(self, self.dest, project_dir, 'index.html')
       end
     end
     
@@ -278,7 +278,7 @@ module Jekyll
   
 
   # Sub-class Jekyll::StaticFile to allow recovery from an unimportant exception when writing zip files.
-  class StaticZipFile < StaticFile
+  class StaticProjectFile < StaticFile
     def write(dest)
       super(dest) rescue ArgumentError
       true
