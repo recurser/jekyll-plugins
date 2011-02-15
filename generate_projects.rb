@@ -216,7 +216,7 @@ module Jekyll
     # Returns String version number of the project if it exists, false otherwise.
     def get_version(repo_dir)
       Find.find(repo_dir) do |file|
-        if File.basename(file) =~ /^VERSION\.[a-z0-9]+/i
+        if File.basename(file) =~ /^VERSION(\.[a-z0-9]+)?/i
           # Remove *all* whitespace from the version, since we may be using it in a filename.
           return File.read(file).gsub(/\s+/, '')
         end
