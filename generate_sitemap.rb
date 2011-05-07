@@ -1,7 +1,7 @@
 # Jekyll sitemap page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.1.3 (201101061053)
+# Version: 0.1.4 (201101061053)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
@@ -100,7 +100,7 @@ module Jekyll
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        result += entry(post.id, post.date)
+        result += entry(post.url, post.date)
       end
       
     	result
@@ -116,8 +116,6 @@ module Jekyll
     #  +path+ is the URL path to the page.
     #  +date+ is the date the file was modified (in the case of regular pages), or published (for blog posts).
     def entry(path, date)
-        # Force extensions to .html from markdown, textile.
-        path = path.gsub(/\.(markdown|textile)$/i, '.html')
       "
   <url>
       <loc>#{BASE_URL}#{path}</loc>
