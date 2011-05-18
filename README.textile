@@ -5,7 +5,7 @@ This is a collection of "Jekyll":https://github.com/mojombo/jekyll plugins and g
 
 h2. License
 
-The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki/MIT_license. See the "License.txt":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/LICENSE.txt file for details.
+The plugins are distributed under the "MIT License":http://en.wikipedia.org/wiki/MIT_license. See the "License":https://github.com/recurser/jekyll-plugins/blob/master/LICENSE file for details.
 
 h2. Installation
 
@@ -13,7 +13,7 @@ To install the plugins simply put them in a directory named <em>_plugins</em> in
 
 h2. Bug Reports
 
-If you come across any problems, please "create a ticket":http://recursive-design.com/code/p/jekyll-plugins/issues/ and we'll try to get it fixed as soon as possible.
+If you come across any problems, please "create a ticket":https://github.com/recurser/jekyll-plugins/issues and we'll try to get it fixed as soon as possible.
 
 h2. Want to make your own plugins?
 
@@ -73,7 +73,7 @@ h2. Usage
 
 To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
 
-You should also copy the "category_index.html":http://recursive-design.com/code/p/jekyll-plugins/source/tree/master/layouts/category_index.html file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+You should also copy the "category_index.html":https://github.com/recurser/jekyll-plugins/blob/master/layouts/category_index.html file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
 h2. How it works
 
@@ -130,5 +130,5 @@ Dave Perrett :: mail@recursive-design.com :: @recurser
 
 h1. Copyright
 
-Copyright (c) 2010 Dave Perrett. See LICENSE for details.
+Copyright (c) 2010 Dave Perrett. See "License":https://github.com/recurser/jekyll-plugins/blob/master/LICENSE for details.
 
