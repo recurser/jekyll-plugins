@@ -19,7 +19,6 @@ h2. Want to make your own plugins?
 
 More information on the Jekyll plugin architecture is available from the "Jekyll wiki":https://github.com/mojombo/jekyll/wiki/Plugins.
 
-<hr/>
 
 h1. generate_projects.rb
 
@@ -65,7 +64,6 @@ h2. Available YAML settings
 * _title_ :      Project title, which can be accessed in the layout.
 * _published_ :  Project won't be published if this is false.
 
-<hr/>
 
 h1. generate_categories.rb
 
@@ -91,7 +89,6 @@ h2. Available _config.yml settings
 * _category_dir_ : The subfolder to build category pages in (default is 'categories').
 * _category_title_prefix_ : The string used before the category name in the page title (default is 'Category: ').
 
-<hr/>
 
 h1. generate_sitemap.rb
 
@@ -105,7 +102,6 @@ h2. How it works
 
 When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in _sitemap.xml_ for each one.
 
-<hr/>
 
 h1. Change history
 
@@ -114,3 +110,25 @@ h1. Change history
 * *Version 0.1.2 (2011-01-06)* : Add generated pages to the Site::pages list, to stop them being deleted automatically by Site::cleanup(); Fixed a file extension problem with _generate_projects.rb_. 
 * *Version 0.1.1 (2010-12-10)* : Use _mtime_ instead of _ctime_ for sitemap modification dates; Fixed sitemap extension bug.
 * *Version 0.1.0 (2010-12-08)* : Initial release.
+
+
+h1. Contributing
+
+Once you've made your commits:
+
+1. "Fork":http://help.github.com/forking/ jekyll-plugins
+2. Create a topic branch - `git checkout -b my_branch`
+3. Push to your branch - `git push origin my_branch`
+4. Create a "Pull Request":http://help.github.com/pull-requests/ from your branch
+5. That's it!
+
+
+h1. Author
+
+Dave Perrett :: mail@recursive-design.com :: @recurser
+
+
+h1. Copyright
+
+Copyright (c) 2010 Dave Perrett. See LICENSE for details.
+
