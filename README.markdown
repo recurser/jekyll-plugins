@@ -63,7 +63,7 @@ Required gems
 * git (>= 1.2.5)
 * rubyzip (>= 0.9.4)
 
-Available _config.yml settings
+Available \_config.yml settings
 ------------------------------
 
 * _project_dir_ : The subfolder to compile projects to (default is 'projects').
