@@ -1,7 +1,7 @@
 # Jekyll project page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.1.4 (201101061053)
+# Version: 0.1.5 (201105211815)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
@@ -102,6 +102,9 @@ module Jekyll
       
       # Try to get the readme data for this path.
       self.content = File.read(readme)
+      
+      # Replace github-style '``` lang' code markup to pygments-compatible.
+      self.content = self.content.gsub(/```([ ]?[a-z0-9]+)?(.*?)```/m, '{% highlight \1 %}\2{% endhighlight %}')
       
       @name = "index#{ext}"
       self.process(@name)
