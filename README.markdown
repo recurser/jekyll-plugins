@@ -100,7 +100,7 @@ Included filters
 * _category_links_ : Outputs the list of categories as comma-separated links.
 * _date_to_html_string_ : Outputs the post.date as formatted html, with hooks for CSS styling.
 
-Available _config.yml settings
+Available \_config.yml settings
 ------------------------------
 
 * _category_dir_ : The subfolder to build category pages in (default is 'categories').
