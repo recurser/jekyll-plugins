@@ -12,7 +12,7 @@ The plugins are distributed under the [MIT License](http://en.wikipedia.org/wiki
 Installation
 ------------
 
-To install the plugins simply put them in a directory named <em>_plugins</em> in your project directory.
+To install the plugins simply put them in a directory named _\_plugins_ in your project directory.
 
 Bug Reports
 -----------
@@ -35,7 +35,7 @@ This was inspired by the project pages on GitHub, which use the project _README_
 Usage
 -----
 
-To use it, simply drop the _generate_projects.rb_ script into the <em>_plugins</em> directory of your Jekyll site. Next, create a <em>_projects</em> folder in the base of your Jekyll site. This folder should contain _.yml_ files describing how to build a page for your project. Here is an example (<em>_projects/jekyll-plugins.yml</em>):
+To use it, simply drop the _generate_projects.rb_ script into the _\_plugins_ directory of your Jekyll site. Next, create a _\_projects_ folder in the base of your Jekyll site. This folder should contain _.yml_ files describing how to build a page for your project. Here is an example _\_projects/jekyll-plugins.yml_):
 
 ``` yaml
 layout:     default
@@ -47,7 +47,7 @@ published:  true
 How it works
 ------------
 
-When you compile your Jekyll site, the plugin will download the git repository of each project in your <em>_projects</em> folder, create an index page from the _README_ file (using the specified layout), and create a downloadable _.zip_ file of the project. The goal is to automate the construction of online project pages, keep them in sync with _README_ documentation, and provide an up-to-date zip archive for download.
+When you compile your Jekyll site, the plugin will download the git repository of each project in your _\_projects_ folder, create an index page from the _README_ file (using the specified layout), and create a downloadable _.zip_ file of the project. The goal is to automate the construction of online project pages, keep them in sync with _README_ documentation, and provide an up-to-date zip archive for download.
 
 Required files
 --------------
@@ -85,9 +85,9 @@ A generator that creates category pages for Jekyll sites (for example our [plugi
 Usage
 -----
 
-To use it, simply drop the _generate_categories.rb_ script into the ==_plugins== directory of your Jekyll site. 
+To use it, simply drop the _generate_categories.rb_ script into the \_plugins directory of your Jekyll site. 
 
-You should also copy the [category_index.html](https://github.com/recurser/jekyll-plugins/blob/master/layouts/category_index.html) file to the <em>_layouts</em> directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+You should also copy the [category_index.html](https://github.com/recurser/jekyll-plugins/blob/master/layouts/category_index.html) file to the _\_layouts_ directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
 How it works
 ------------
@@ -115,7 +115,7 @@ A simple generator that creates a _sitemap.xml_ page for Jekyll sites, suitable 
 Usage
 -----
 
-To use it, simply drop the _generate_sitemap.rb_ script into the <em>_plugins</em> directory of your Jekyll site.
+To use it, simply drop the _generate_sitemap.rb_ script into the _\_plugins_ directory of your Jekyll site.
 
 How it works
 ------------
