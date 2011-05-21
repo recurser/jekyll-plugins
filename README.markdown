@@ -76,6 +76,10 @@ Available YAML settings
 * _title_ :      Project title, which can be accessed in the layout.
 * _published_ :  Project won't be published if this is false.
 
+There is also an optional _zip_folder_name_ setting, in case you want the unzipped folder to be named
+something other than the project name. This is useful (for eaxmple) if you want it to unzip as an
+OS X 'Something.app' application bundle.
+
 
 generate_categories.rb
 ======================
@@ -126,6 +130,7 @@ When you compile your Jekyll site, the plugin will loop through the list of page
 Change history
 ==============
 
+* **Version 0.1.5 (2011-05-21)** : Added optional _zip_folder_name_ YAML config setting.
 * **Version 0.1.5 (2011-05-21)** : Replace github-style code markup to pygments-compatible 'highlight' format.
 * **Version 0.1.4 (2011-05-08)** : Applied patch to fix permalink problem in generate_sitemap.rb (thanks ejel!).
 * **Version 0.1.3 (2011-01-06)** : Fixed pygments code formatting bug introduced in generate_projects.rb v0.1.2.

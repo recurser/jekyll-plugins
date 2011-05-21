@@ -1,7 +1,7 @@
 # Jekyll project page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.1.5 (201105211815)
+# Version: 0.1.6 (201105211815)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
@@ -25,6 +25,10 @@
 # repository: git://recursive-design.com/jekyll-plugins.git
 # published:  true
 # ================================== COPY ABOVE THIS LINE ==================================
+#
+# There is also an optional 'zip_folder_name' setting, in case you want the unzipped folder to be named
+# something other than the project name. This is useful (for eaxmple) if you want it to unzip as an
+# OS X 'Something.app' application bundle.
 #
 # When you compile your jekyll site, the plugin will download the git repository of each project
 # in your _projects folder, create an index page from the README (using the specified layout),
@@ -83,13 +87,18 @@ module Jekyll
       end
       
       # Clone the repo locally and get the path.
-      repo_dir = clone_repo(project_name)
+      zip_name = project_name
+      if self.data['zip_folder_name']
+        zip_name = self.data['zip_folder_name']
+      end
+      
+      repo_dir = clone_repo(zip_name)
       
       # Get the version if possible.
       version = get_version(repo_dir)
       
       # Create the .zip file.
-      self.data['download_link'] = create_zip(repo_dir, project_name, project_dir, version)
+      self.data['download_link'] = create_zip(repo_dir, zip_name, project_dir, version)
       
       # Get the path to the README
       readme = get_readme_path(repo_dir)
@@ -128,7 +137,7 @@ module Jekyll
     #  +project_name+ is the name of the project to process.
     #
     # Returns String path to the cloned repository.
-    def clone_repo(project_name)
+    def clone_repo(zip_name)
       # Make the base clone directory if necessary.
       clone_dir = File.join(Dir.tmpdir(), 'checkout')
       unless File.directory?(clone_dir)
@@ -137,14 +146,14 @@ module Jekyll
       end
       
       # Remove any old repo at this location.
-      repo_dir = File.join(clone_dir, project_name)
+      repo_dir = File.join(clone_dir, zip_name)
       if File.directory?(repo_dir)
         FileUtils.remove_dir(repo_dir)
       end
       
       # Clone the repository.
       puts "Cloning #{self.data['repository']} to #{repo_dir}"
-      Git.clone(self.data['repository'], project_name, :path => clone_dir)
+      Git.clone(self.data['repository'], zip_name, :path => clone_dir)
       repo_dir
     end
     
@@ -171,7 +180,7 @@ module Jekyll
     #  +version+      is the version number to use when creating the zip file.
     #
     # Returns String path to the zip file.
-    def create_zip(repo_dir, project_name, project_dir, version)
+    def create_zip(repo_dir, zip_name, project_dir, version)
       # Create the target folder if it doesn't exist.
       target_folder = File.join(@site.config['destination'], project_dir)
       unless File.directory?(target_folder)
@@ -182,7 +191,7 @@ module Jekyll
       unless version
         version = Time.now.strftime('%Y%m%d%H%M') 
       end
-      zip_filename    = "#{project_name}.#{version}.zip"
+      zip_filename    = "#{zip_name}.#{version}.zip"
       bundle_filename = File.join(target_folder, zip_filename)
       puts "Creating #{bundle_filename}"
       
