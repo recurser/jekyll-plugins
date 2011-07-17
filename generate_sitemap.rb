@@ -43,9 +43,6 @@ module Jekyll
     safe true
     priority :low
     
-    # Domain that you are generating the sitemap for - update this to match your site.
-    BASE_URL = 'http://recursive-design.com'
-    
     # Generates the sitemap.xml file.
     #
     #  +site+ is the global Site object.
@@ -87,23 +84,26 @@ module Jekyll
         path     = page.subfolder + '/' + page.name
         mod_date = File.mtime(site.source + path)
 
-  			# Remove the trailing 'index.html' if there is one, and just output the folder name.
-  			if path=~/index.html$/
-  			  path = path[0..-11]
-  		  end
+        # Remove the trailing 'index.html' if there is one, and just output the folder name.
+        if path=~/index.html$/
+            path = path[0..-11]
+        end
+
+        # rename any md files to html (as that is how they appear in _site)
+        path.gsub!( /.md$/, ".html" )
         
         unless path =~/error/
-          result += entry(path, mod_date)
+          result += entry(path, mod_date, site)
         end
       }
       
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        result += entry(post.url, post.date)
+        result += entry("/"+post.url, post.date, site)
       end
       
-    	result
+        result
     end
 
     # Returns the XML footer.
@@ -115,10 +115,10 @@ module Jekyll
     #
     #  +path+ is the URL path to the page.
     #  +date+ is the date the file was modified (in the case of regular pages), or published (for blog posts).
-    def entry(path, date)
+    def entry(path, date, site)
       "
   <url>
-      <loc>#{BASE_URL}#{path}</loc>
+      <loc>#{site.config['baseurl']}#{path}</loc>
       <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>
   </url>"
     end
