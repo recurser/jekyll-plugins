@@ -130,9 +130,10 @@ When you compile your Jekyll site, the plugin will loop through the list of page
 Change history
 ==============
 
-* **Version 0.1.5 (2011-05-21)** : Added optional _zip_folder_name_ YAML config setting.
+* **Version 0.1.7 (2011-07-19)** : Sitemap base URL fix (thanks [ojilles](https://github.com/ojilles)!).
+* **Version 0.1.6 (2011-05-21)** : Added optional _zip_folder_name_ YAML config setting.
 * **Version 0.1.5 (2011-05-21)** : Replace github-style code markup to pygments-compatible 'highlight' format.
-* **Version 0.1.4 (2011-05-08)** : Applied patch to fix permalink problem in generate_sitemap.rb (thanks ejel!).
+* **Version 0.1.4 (2011-05-08)** : Applied patch to fix permalink problem in generate_sitemap.rb (thanks [ejel](https://github.com/ejel)!).
 * **Version 0.1.3 (2011-01-06)** : Fixed pygments code formatting bug introduced in generate_projects.rb v0.1.2.
 * **Version 0.1.2 (2011-01-06)** : Add generated pages to the Site::pages list, to stop them being deleted automatically by Site::cleanup(); Fixed a file extension problem with _generate_projects.rb_. 
 * **Version 0.1.1 (2010-12-10)** : Use _mtime_ instead of _ctime_ for sitemap modification dates; Fixed sitemap extension bug.
