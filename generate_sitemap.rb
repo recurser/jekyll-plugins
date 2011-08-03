@@ -91,16 +91,27 @@ module Jekyll
 
         # rename any md files to html (as that is how they appear in _site)
         path.gsub!( /.md$/, ".html" )
+
+        if page.data.has_key?('changefreq')
+          changefreq = page.data["changefreq"]
+        else
+          changefreq = ""
+        end
         
         unless path =~/error/
-          result += entry(path, mod_date, site)
+          result += entry(path, mod_date, changefreq, site)
         end
       }
       
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        result += entry("/"+post.url, post.date, site)
+        if post.data.has_key?('changefreq')
+          changefreq = post.data["changefreq"]
+        else
+          changefreq = "never"
+        end
+        result += entry("/"+post.url, post.date, changefreq, site)
       end
       
         result
@@ -115,11 +126,15 @@ module Jekyll
     #
     #  +path+ is the URL path to the page.
     #  +date+ is the date the file was modified (in the case of regular pages), or published (for blog posts).
-    def entry(path, date, site)
+    #  +changefreq+ is the frequency with which the page is expected to change (this information is used by
+    #    e.g. the Googlebot). This may be specified in the page's YAML front matter. If it is not set, nothing
+    #    is output for this property.
+    def entry(path, date, changefreq, site)
       "
   <url>
       <loc>#{site.config['baseurl']}#{path}</loc>
-      <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>
+      <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>#{if changefreq.length > 0
+          "\n      <changefreq>#{changefreq}</changefreq>" end}
   </url>"
     end
 
