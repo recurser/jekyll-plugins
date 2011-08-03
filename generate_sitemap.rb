@@ -84,10 +84,10 @@ module Jekyll
         path     = page.subfolder + '/' + page.name
         mod_date = File.mtime(site.source + path)
 
-		# Ignore SASS, SCSS, and CSS files
-		if path=~/.(sass|scss|css)$/
-			next
-		end
+        # Ignore SASS, SCSS, and CSS files
+        if path=~/.(sass|scss|css)$/
+          next
+        end
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
         if path=~/index.html$/
