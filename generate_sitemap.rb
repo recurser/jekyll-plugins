@@ -98,7 +98,7 @@ module Jekyll
         end
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
-        if path=~/index.html$/
+        if path=~/\/index.html$/
           path = path[0..-11]
         end
 
@@ -111,7 +111,7 @@ module Jekyll
       posts = site.site_payload['site']['posts']
       for post in posts do
         url = post.url
-        url = url[0..-11] if url=~/index.html$/
+        url = url[0..-11] if url=~/\/index.html$/
         result += entry("/"+url, post.date, site)
       end
       
