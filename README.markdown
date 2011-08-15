@@ -126,6 +126,11 @@ How it works
 
 When you compile your Jekyll site, the plugin will loop through the list of pages in your site, and generate an entry in _sitemap.xml_ for each one.
 
+Available YAML settings
+-----------------------
+
+* _changefreq_ : How often this page will change. This setting is optional, but if specified its value must be one of `always`, `hourly`, `daily`, `weekly`, `monthly`, `yearly`, or `never`. See [the sitemap specification](http://www.sitemaps.org/protocol.php#xmlTagDefinitions) for more details on what this is used for. By default, this property is omitted for static pages and `never` for the files in `_posts` (since these are typically blog entries or the like).
+
 
 Change history
 ==============
