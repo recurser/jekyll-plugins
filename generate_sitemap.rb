@@ -99,7 +99,7 @@ module Jekyll
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
         if path=~/\/index.html$/
-            path = path[0..-11]
+          path = path[0..-11]
         end
 
         if page.data.has_key?('changefreq')
@@ -121,7 +121,7 @@ module Jekyll
         else
           changefreq = "never"
         end
-        url = post.url
+        url = "/" + post.url
         url = url[0..-11] if url=~/\/index.html$/
         result += entry(url, post.date, changefreq, site)
       end
