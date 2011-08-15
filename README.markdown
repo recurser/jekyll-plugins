@@ -135,6 +135,7 @@ Available YAML settings
 Change history
 ==============
 
+* **Version 0.1.8 (2011-08-15)** : A bunch of fixes and improvements (thanks [bdesham](https://github.com/bdesham)!).
 * **Version 0.1.7 (2011-07-19)** : Sitemap base URL fix (thanks [ojilles](https://github.com/ojilles)!).
 * **Version 0.1.6 (2011-05-21)** : Added optional _zip_folder_name_ YAML config setting.
 * **Version 0.1.5 (2011-05-21)** : Replace github-style code markup to pygments-compatible 'highlight' format.

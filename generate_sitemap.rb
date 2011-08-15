@@ -1,7 +1,7 @@
 # Jekyll sitemap page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.1.7 (201107191013)
+# Version: 0.1.8 (201108151628)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
@@ -84,18 +84,23 @@ module Jekyll
         path     = page.subfolder + '/' + page.name
         mod_date = File.mtime(site.source + path)
 
+        # Use the user-specified permalink if one is given.
+        if page.permalink
+          path = page.permalink
+        else
+          # Be smart about the output filename.
+          path.gsub!(/.md$/, ".html")
+        end
+
         # Ignore SASS, SCSS, and CSS files
         if path=~/.(sass|scss|css)$/
           next
         end
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
-        if path=~/index.html$/
+        if path=~/\/index.html$/
             path = path[0..-11]
         end
-
-        # rename any md files to html (as that is how they appear in _site)
-        path.gsub!( /.md$/, ".html" )
 
         if page.data.has_key?('changefreq')
           changefreq = page.data["changefreq"]
@@ -116,7 +121,9 @@ module Jekyll
         else
           changefreq = "never"
         end
-        result += entry("/"+post.url, post.date, changefreq, site)
+        url = post.url
+        url = url[0..-11] if url=~/\/index.html$/
+        result += entry(url, post.date, changefreq, site)
       end
       
         result
@@ -135,9 +142,13 @@ module Jekyll
     #    e.g. the Googlebot). This may be specified in the page's YAML front matter. If it is not set, nothing
     #    is output for this property.
     def entry(path, date, changefreq, site)
+      # Remove the trailing slash from the baseurl if it is present, for consistency.
+      baseurl = site.config['baseurl']
+      baseurl = baseurl[0..-2] if baseurl=~/\/$/
+      
       "
   <url>
-      <loc>#{site.config['baseurl']}#{path}</loc>
+      <loc>#{baseurl}#{path}</loc>
       <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>#{if changefreq.length > 0
           "\n      <changefreq>#{changefreq}</changefreq>" end}
   </url>"
