@@ -84,14 +84,19 @@ module Jekyll
         path     = page.subfolder + '/' + page.name
         mod_date = File.mtime(site.source + path)
 
-        # Remove the trailing 'index.html' if there is one, and just output the folder name.
-        if path=~/index.html$/
-            path = path[0..-11]
+        # Use the user-specified permalink if one is given
+        if page.permalink
+          path = page.permalink
+        else
+          # Be smart about the output filename
+          path.gsub!(/.md$/, ".html")
         end
 
-        # rename any md files to html (as that is how they appear in _site)
-        path.gsub!( /.md$/, ".html" )
-        
+        # Remove the trailing 'index.html' if there is one, and just output the folder name.
+        if path=~/\/index.html$/
+          path = path[0..-11]
+        end
+
         unless path =~/error/
           result += entry(path, mod_date, site)
         end
@@ -100,7 +105,9 @@ module Jekyll
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        result += entry("/"+post.url, post.date, site)
+        url = post.url
+        url = url[0..-11] if url=~/\/index.html$/
+        result += entry("/"+url, post.date, site)
       end
       
         result
