@@ -109,6 +109,7 @@ module Jekyll
       posts = site.site_payload['site']['posts']
       for post in posts do
         url     = post.url
+        url     = '/' + url unless url =~ /^\//
         url     = url[0..-11] if url=~/\/index.html$/
         result += entry(url, post.date, get_attrs(post), site)
       end
