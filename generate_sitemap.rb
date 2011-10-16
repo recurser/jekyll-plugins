@@ -84,25 +84,25 @@ module Jekyll
         path = page.subfolder + '/' + page.name
 
         # Skip files that don't exist yet (e.g. paginator pages)
-        if FileTest.exist?(path)
-          mod_date = File.mtime(site.source + path)
+        next unless FileTest.exist?(path)
 
-          # Use the user-specified permalink if one is given.
-          if page.permalink
-            path = page.permalink
-          else
-            # Be smart about the output filename.
-            path.gsub!(/.md$/, '.html')
-          end
+        mod_date = File.mtime(site.source + path)
 
-          # Ignore SASS, SCSS, and CSS files
-          next if path =~ /.(sass|scss|css)$/
-
-          # Remove the trailing 'index.html' if there is one, and just output the folder name.
-          path = path[0..-11] if path =~ /\/index.html$/
-
-          result += entry(path, mod_date, get_attrs(page), site) unless path =~ /error/
+        # Use the user-specified permalink if one is given.
+        if page.permalink
+          path = page.permalink
+        else
+          # Be smart about the output filename.
+          path.gsub!(/.md$/, '.html')
         end
+
+        # Ignore SASS, SCSS, and CSS files
+        next if path =~ /.(sass|scss|css)$/
+
+        # Remove the trailing 'index.html' if there is one, and just output the folder name.
+        path = path[0..-11] if path =~ /\/index.html$/
+
+        result += entry(path, mod_date, get_attrs(page), site) unless path =~ /error/
       }
 
       # Next, find all the posts.
