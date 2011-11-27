@@ -77,15 +77,14 @@ module Jekyll
     #
     #  +site+ is the global Site object.
     def generate_content(site)
-      result   = ''
+      result = ''
 
       # First, try to find any stand-alone pages.
-      site.pages.each{ |page|
-        path     = page.subfolder + '/' + page.name
+      site.pages.each { |page|
+        path = page.subfolder + '/' + page.name
 
         # Skip files that don't exist yet (e.g. paginator pages)
         if FileTest.exist?(path)
-
           mod_date = File.mtime(site.source + path)
 
           # Use the user-specified permalink if one is given.
@@ -93,13 +92,11 @@ module Jekyll
             path = page.permalink
           else
             # Be smart about the output filename.
-            path.gsub!(/.md$/, ".html")
+            path.gsub!(/.md$/, '.html')
           end
 
           # Ignore SASS, SCSS, and CSS files
-          if path=~/.(sass|scss|css)$/
-            next
-          end
+          next if path =~ /.(sass|scss|css)$/
 
           # Remove the trailing 'index.html' if there is one, and just output the folder name.
           path = path[0..-11] if path =~ /\/index.html$/
@@ -111,8 +108,8 @@ module Jekyll
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        url = post.url
-        url = url[0..-11] if url=~/\/index.html$/
+        url     = post.url
+        url     = url[0..-11] if url=~/\/index.html$/
         result += entry(url, post.date, get_attrs(post), site)
       end
 
@@ -120,9 +117,9 @@ module Jekyll
     end
 
     def get_attrs( page )
-      attrs = Hash.new
+      attrs              = Hash.new
       attrs[:changefreq] = page.data['changefreq'] if page.data.has_key?('changefreq')
-      attrs[:priority] = page.data['priority'] if page.data.has_key?('priority')
+      attrs[:priority]   = page.data['priority'] if page.data.has_key?('priority')
       attrs
     end
 
