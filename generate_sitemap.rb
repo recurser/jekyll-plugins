@@ -96,33 +96,27 @@ module Jekyll
         next if path =~ /.(sass|scss|css)$/
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
-
-        if page.data.has_key?('changefreq')
-          changefreq = page.data["changefreq"]
-        else
-          changefreq = ""
-        end
         path = path[0..-11] if path =~ /\/index.html$/
         
-        unless path =~/error/
-          result += entry(path, mod_date, changefreq, site)
-        end
+        result += entry(path, mod_date, get_attrs(page), site) unless path =~ /error/
       }
       
       # Next, find all the posts.
       posts = site.site_payload['site']['posts']
       for post in posts do
-        if post.data.has_key?('changefreq')
-          changefreq = post.data["changefreq"]
-        else
-          changefreq = "never"
-        end
         url = post.url
         url = url[0..-11] if url=~/\/index.html$/
-        result += entry(url, post.date, changefreq, site)
+        result += entry(url, post.date, get_attrs(post), site)
       end
       
-        result
+      result
+    end
+
+    def get_attrs( page )
+      attrs = Hash.new
+      attrs[:changefreq] = page.data['changefreq'] if page.data.has_key?('changefreq')
+      attrs[:priority] = page.data['priority'] if page.data.has_key?('priority')
+      attrs
     end
 
     # Returns the XML footer.
@@ -137,16 +131,16 @@ module Jekyll
     #  +changefreq+ is the frequency with which the page is expected to change (this information is used by
     #    e.g. the Googlebot). This may be specified in the page's YAML front matter. If it is not set, nothing
     #    is output for this property.
-    def entry(path, date, changefreq, site)
+    def entry(path, date, attrs, site)
       # Remove the trailing slash from the baseurl if it is present, for consistency.
       baseurl = site.config['baseurl']
       baseurl = baseurl[0..-2] if baseurl=~/\/$/
       
       "
   <url>
-      <loc>#{baseurl}#{path}</loc>
-      <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>#{if changefreq.length > 0
-          "\n      <changefreq>#{changefreq}</changefreq>" end}
+    <loc>#{baseurl}#{path}</loc>
+    <lastmod>#{date.strftime("%Y-%m-%d")}</lastmod>
+" + attrs.map { |k,v| "    <#{k}>#{v}</#{k}>" }.join("\n") + "
   </url>"
     end
 
