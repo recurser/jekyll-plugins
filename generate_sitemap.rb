@@ -77,10 +77,10 @@ module Jekyll
     #
     #  +site+ is the global Site object.
     def generate_content(site)
-      result   = ''
+      result = ''
       
       # First, try to find any stand-alone pages.      
-      site.pages.each{ |page|
+      site.pages.each { | page |
         path     = page.subfolder + '/' + page.name
         mod_date = File.mtime(site.source + path)
 
@@ -89,24 +89,20 @@ module Jekyll
           path = page.permalink
         else
           # Be smart about the output filename.
-          path.gsub!(/.md$/, ".html")
+          path.gsub!( /.md$/, ".html" )
         end
 
         # Ignore SASS, SCSS, and CSS files
-        if path=~/.(sass|scss|css)$/
-          next
-        end
+        next if path =~ /.(sass|scss|css)$/
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
-        if path=~/\/index.html$/
-            path = path[0..-11]
-        end
 
         if page.data.has_key?('changefreq')
           changefreq = page.data["changefreq"]
         else
           changefreq = ""
         end
+        path = path[0..-11] if path =~ /\/index.html$/
         
         unless path =~/error/
           result += entry(path, mod_date, changefreq, site)
