@@ -94,7 +94,13 @@ module Jekyll
       if self.layouts.key? 'category_index'
         dir = self.config['category_dir'] || 'categories'
         self.categories.keys.each do |category|
-          self.write_category_index(File.join(dir, category), category)
+          
+          category_text = category
+          if category.kind_of? Hash
+            category_text = category["title"] || category{"slug"]
+          end
+          
+          self.write_category_index(File.join(dir, category_text), category)
         end
         
       # Throw an exception if the layout couldn't be found.
