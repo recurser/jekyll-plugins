@@ -97,7 +97,7 @@ module Jekyll
           
           category_text = category
           if category.kind_of? Hash
-            category_text = category["title"] || category{"slug"]
+            category_text = category{"slug"]
           end
           
           self.write_category_index(File.join(dir, category_text), category)
