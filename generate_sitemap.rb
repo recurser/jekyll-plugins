@@ -82,34 +82,40 @@ module Jekyll
       # First, try to find any stand-alone pages.      
       site.pages.each{ |page|
         path     = page.subfolder + '/' + page.name
-        mod_date = File.mtime(site.source + path)
-
-        # Use the user-specified permalink if one is given.
-        if page.permalink
-          path = page.permalink
-        else
-          # Be smart about the output filename.
-          path.gsub!(/.md$/, ".html")
-        end
-
-        # Ignore SASS, SCSS, and CSS files
-        if path=~/.(sass|scss|css)$/
-          next
-        end
-
-        # Remove the trailing 'index.html' if there is one, and just output the folder name.
-        if path=~/\/index.html$/
-            path = path[0..-11]
-        end
-
-        if page.data.has_key?('changefreq')
-          changefreq = page.data["changefreq"]
-        else
-          changefreq = ""
-        end
         
-        unless path =~/error/
-          result += entry(path, mod_date, changefreq, site)
+        # Skip files that don't exist yet (e.g. paginator pages)
+        if FileTest.exist?(path)
+        
+          mod_date = File.mtime(site.source + path)
+
+          # Use the user-specified permalink if one is given.
+          if page.permalink
+            path = page.permalink
+          else
+            # Be smart about the output filename.
+            path.gsub!(/.md$/, ".html")
+          end
+
+          # Ignore SASS, SCSS, and CSS files
+          if path=~/.(sass|scss|css)$/
+            next
+          end
+
+          # Remove the trailing 'index.html' if there is one, and just output the folder name.
+          if path=~/\/index.html$/
+              path = path[0..-11]
+          end
+
+          if page.data.has_key?('changefreq')
+            changefreq = page.data["changefreq"]
+          else
+            changefreq = ""
+          end
+        
+          unless path =~/error/
+            result += entry(path, mod_date, changefreq, site)
+          end
+        
         end
       }
       
