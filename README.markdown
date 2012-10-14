@@ -28,7 +28,7 @@ More information on the Jekyll plugin architecture is available from the [Jekyll
 generate_projects.rb
 ====================
 
-A generator that creates project pages for Jekyll sites from git repositories. 
+A generator that creates project pages for Jekyll sites from git repositories.
 
 This was inspired by the project pages on GitHub, which use the project _README_ file as the index page. It takes git repositories, and automatically builds project pages for them using the _README_ file, along with downloadable zipped copies of the projects themselves (for example, the project page for this [plugin repository](http://recursive-design.com/projects/jekyll-plugins/) is auto-generated with this plugin).
 
@@ -89,7 +89,7 @@ A generator that creates category pages for Jekyll sites (for example our [plugi
 Usage
 -----
 
-To use it, simply drop the _generate_categories.rb_ script into the \_plugins directory of your Jekyll site. 
+To use it, simply drop the _generate_categories.rb_ script into the \_plugins directory of your Jekyll site.
 
 You should also copy the [category_index.html](https://github.com/recurser/jekyll-plugins/blob/master/layouts/category_index.html) file to the _\_layouts_ directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
 
@@ -135,13 +135,17 @@ Available YAML settings
 Change history
 ==============
 
+* **Version 0.2.0 (2012-10-14)** :
+  * Add support for priority in _generate_sitemap.rb_ (thanks [hez](https://github.com/hez)!).
+  * Remove hard-coded category directory in _generate_categories.rb_ (thanks [ghinda](https://github.com/ghinda) and [MrWerewolf](https://github.com/MrWerewolf)!).
+  * Improved slash handling in _generate_sitemap.rb_.
 * **Version 0.1.8 (2011-08-15)** : A bunch of fixes and improvements (thanks [bdesham](https://github.com/bdesham)!).
 * **Version 0.1.7 (2011-07-19)** : Sitemap base URL fix (thanks [ojilles](https://github.com/ojilles)!).
 * **Version 0.1.6 (2011-05-21)** : Added optional _zip_folder_name_ YAML config setting.
 * **Version 0.1.5 (2011-05-21)** : Replace github-style code markup to pygments-compatible 'highlight' format.
-* **Version 0.1.4 (2011-05-08)** : Applied patch to fix permalink problem in generate_sitemap.rb (thanks [ejel](https://github.com/ejel)!).
-* **Version 0.1.3 (2011-01-06)** : Fixed pygments code formatting bug introduced in generate_projects.rb v0.1.2.
-* **Version 0.1.2 (2011-01-06)** : Add generated pages to the Site::pages list, to stop them being deleted automatically by Site::cleanup(); Fixed a file extension problem with _generate_projects.rb_. 
+* **Version 0.1.4 (2011-05-08)** : Applied patch to fix permalink problem in _generate_sitemap.rb_ (thanks [ejel](https://github.com/ejel)!).
+* **Version 0.1.3 (2011-01-06)** : Fixed pygments code formatting bug introduced in _generate_projects.rb_ v0.1.2.
+* **Version 0.1.2 (2011-01-06)** : Add generated pages to the Site::pages list, to stop them being deleted automatically by Site::cleanup(); Fixed a file extension problem with _generate_projects.rb_.
 * **Version 0.1.1 (2010-12-10)** : Use _mtime_ instead of _ctime_ for sitemap modification dates; Fixed sitemap extension bug.
 * **Version 0.1.0 (2010-12-08)** : Initial release.
 
