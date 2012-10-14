@@ -1,3 +1,5 @@
+# encoding: utf-8
+#
 # Jekyll category page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
@@ -81,8 +83,7 @@ module Jekyll
     #
     #  +category+ is the category currently being processed.
     def write_category_index(category)
-      base       = GenerateCategories.category_dir(self.config['category_dir'])
-      target_dir = File.join(base, category)
+      target_dir = GenerateCategories.category_dir(self.config['category_dir'], category)
       index      = CategoryIndex.new(self, self.source, target_dir, category)
       index.render(self.layouts, site_payload)
       index.write(self.dest)
@@ -119,8 +120,10 @@ module Jekyll
 
     # Processes the given dir and removes leading and trailing slashes. Falls
     # back on the default if no dir is provided.
-    def self.category_dir(dir)
-      (dir || CATEGORY_DIR).gsub(/^\/*(.*)\/*$/, '\1')
+    def self.category_dir(base_dir, category)
+      base_dir = (base_dir || CATEGORY_DIR).gsub(/^\/*(.*)\/*$/, '\1')
+      category = category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
+      File.join(base_dir, category)
     end
 
   end
@@ -136,12 +139,12 @@ module Jekyll
     #
     # Returns string
     def category_links(categories)
-      site         = @context.registers[:site]
-      category_dir = GenerateCategories.category_dir(site.config['category_dir'])
-      # We want the category to begin with a slash, except if it is empty.
-      category_dir = "/#{category_dir}" unless category_dir.empty?
-      categories   = categories.sort!.map do |item|
-        "<a href='#{category_dir}/#{item}/'>#{item}</a>"
+      base_dir = @context.registers[:site].config['category_dir']
+      categories = categories.sort!.map do |category|
+        category_dir = GenerateCategories.category_dir(base_dir, category)
+        # Make sure the category directory begins with a slash.
+        category_dir = "/#{category_dir}" unless category_dir =~ /^\//
+        "<a href='#{category_dir}/'>#{category}</a>"
       end
 
       connector = "and"
