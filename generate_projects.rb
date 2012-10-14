@@ -1,22 +1,22 @@
 # Jekyll project page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.1.8 (201108151628)
+# Version: 0.2.0 (201210141656)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 #
-# Generator that creates project pages for jekyll sites from git repositories. 
+# Generator that creates project pages for jekyll sites from git repositories.
 #
-# This was inspired by the project pages on GitHub, which use the project README file as the index 
-# page. It takes git repositories, and automatically builds project pages for them using the README 
-# file, along with downloadable zipped copies of the projects themselves (for example, the project 
-# page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is 
+# This was inspired by the project pages on GitHub, which use the project README file as the index
+# page. It takes git repositories, and automatically builds project pages for them using the README
+# file, along with downloadable zipped copies of the projects themselves (for example, the project
+# page for this "plugin repository":http://recursive-design.com/projects/jekyll-plugins/ is
 # auto-generated with this plugin).
 #
-# To use it, simply drop this script into the _plugins directory of your Jekyll site. Next, create a 
-# *_projects* folder in the base of your jekyll site. This folder should contain .yml files describing 
-# how to build a page for your project. Here is an example jekyll-plugins.yml (note: you should remove 
+# To use it, simply drop this script into the _plugins directory of your Jekyll site. Next, create a
+# *_projects* folder in the base of your jekyll site. This folder should contain .yml files describing
+# how to build a page for your project. Here is an example jekyll-plugins.yml (note: you should remove
 # the leading '# ' characters):
 #
 # ================================== COPY BELOW THIS LINE ==================================
@@ -38,11 +38,11 @@
 #
 # Required files :
 # Your project's git repository should contain:
-# - README:       The contents of this will be used as the body of your project page will be created 
-#                 from. Any extension other than .markdown, .textile or .html will be treated as a 
+# - README:       The contents of this will be used as the body of your project page will be created
+#                 from. Any extension other than .markdown, .textile or .html will be treated as a
 #                 .textile file.
-# - versions.txt: Contains the version string (eg 1.0.0). Used when naming the downloadable zip-file 
-#                 (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will 
+# - versions.txt: Contains the version string (eg 1.0.0). Used when naming the downloadable zip-file
+#                 (optional). If the version.txt file is not available, a YYYYMMDDHHMM timestamp will
 #                 be used for the version.
 #
 # Required gems :
@@ -63,12 +63,12 @@ require 'find'
 require 'git'
 require 'zip/zip'
 require 'zip/zipfilesystem'
-	
-module Jekyll  
-  
+
+module Jekyll
+
   # The ProjectIndex class creates a single project page for the specified project.
   class ProjectIndex < Page
-    
+
     # Initialize a new ProjectIndex.
     #  +base_dir+            is the String path to the <source>
     #  +project_dir+         is the relative path from the base directory to the project folder.
@@ -78,49 +78,49 @@ module Jekyll
       @site = site
       @base = base_dir
       @dir  = project_dir
-      
+
       self.data = load_config(base_dir, project_config_path)
-      
+
       # Ignore the project unless it has been marked as published.
       unless self.data['published']
         return false
       end
-      
+
       # Clone the repo locally and get the path.
       zip_name = project_name
       if self.data['zip_folder_name']
         zip_name = self.data['zip_folder_name']
       end
-      
+
       repo_dir = clone_repo(zip_name)
-      
+
       # Get the version if possible.
       version = get_version(repo_dir)
-      
+
       # Create the .zip file.
       self.data['download_link'] = create_zip(repo_dir, zip_name, project_dir, version)
-      
+
       # Get the path to the README
       readme = get_readme_path(repo_dir)
-      
+
       # Decide the extension - if it's not textile, markdown or HTML treat it as textile.
       ext = File.extname(readme)
       unless ['.textile', '.markdown', '.html'].include?(ext)
         ext = '.textile'
       end
-      
+
       # Try to get the readme data for this path.
       self.content = File.read(readme)
-      
+
       # Replace github-style '``` lang' code markup to pygments-compatible.
       self.content = self.content.gsub(/```([ ]?[a-z0-9]+)?(.*?)```/m, '{% highlight \1 %}\2{% endhighlight %}')
-      
+
       @name = "index#{ext}"
       self.process(@name)
     end
-    
+
     private
-    
+
     # Loads the .yml config file for this project.
     #
     #  +base_dir+            is the base path to the jekyll project.
@@ -131,7 +131,7 @@ module Jekyll
       yaml = File.read(File.join(base_dir, project_config_path))
       YAML.load(yaml)
     end
-    
+
     # Clones the project's repository to a temp folder.
     #
     #  +project_name+ is the name of the project to process.
@@ -144,19 +144,19 @@ module Jekyll
         p = Pathname.new(clone_dir)
         p.mkdir
       end
-      
+
       # Remove any old repo at this location.
       repo_dir = File.join(clone_dir, zip_name)
       if File.directory?(repo_dir)
         FileUtils.remove_dir(repo_dir)
       end
-      
+
       # Clone the repository.
       puts "Cloning #{self.data['repository']} to #{repo_dir}"
       Git.clone(self.data['repository'], zip_name, :path => clone_dir)
       repo_dir
     end
-    
+
     # Gets the path to the README file for the project.
     #
     #  +repo_dir+ is the path to the directory containing the checkout-out repository.
@@ -168,10 +168,10 @@ module Jekyll
           return file
         end
       end
-      
+
       throw "No README file found in #{repo_dir}"
     end
-    
+
     # Creates a zipped archive file of the downloaded repository.
     #
     #  +repo_dir+     is the path to the directory containing the checkout-out repository.
@@ -186,15 +186,15 @@ module Jekyll
       unless File.directory?(target_folder)
         FileUtils.mkdir_p(target_folder)
       end
-      
+
       # Decide the name of the bundle - use a timestamp if no version is available.
       unless version
-        version = Time.now.strftime('%Y%m%d%H%M') 
+        version = Time.now.strftime('%Y%m%d%H%M')
       end
       zip_filename    = "#{zip_name}.#{version}.zip"
       bundle_filename = File.join(target_folder, zip_filename)
       puts "Creating #{bundle_filename}"
-      
+
       # Remove the bundle if it already exists.
       if File.file?(bundle_filename)
         File.delete(bundle_filename)
@@ -209,18 +209,18 @@ module Jekyll
           dest = path.sub parent, ''
           # Add the file to the bundle.
           zipfile.add(dest, path) if dest
-        end 
-        
+        end
+
         # Add a static file entry for the zip file, otherwise Site::cleanup will remove it.
         @site.static_files << Jekyll::StaticProjectFile.new(@site, @site.dest, @dir, zip_filename)
       end
-      
+
       # Set permissions.
       File.chmod(0644, bundle_filename)
-      
+
       File.basename(bundle_filename)
     end
-    
+
     # Get the version of the project from version.txt if possible.
     #
     #  +repo_dir+ is the path to the directory containing the checkout-out repository.
@@ -233,19 +233,19 @@ module Jekyll
           return File.read(file).gsub(/\s+/, '')
         end
       end
-      
+
       false
     end
-    
+
   end
-  
-  
+
+
   # The Site class is a built-in Jekyll class with access to global site config information.
   class Site
-    
+
     # Folder containing project .yml files.
     PROJECT_FOLDER = '_projects'
-    
+
     # Loops through the list of project pages and processes each one.
     def write_project_indexes
       base_dir = self.config['project_dir'] || 'projects'
@@ -255,7 +255,7 @@ module Jekyll
         self.write_project_index(File.join(base_dir, project_name), project_config_path, project_name)
       end
     end
-    
+
     # Writes each project page.
     #
     #  +project_dir+         is the relative path from the base directory to the project folder.
@@ -271,7 +271,7 @@ module Jekyll
         self.static_files << Jekyll::StaticProjectFile.new(self, self.dest, project_dir, 'index.html')
       end
     end
-    
+
     # Gets a list of files in the _projects folder with a .yml extension.
     #
     # Return Array list of project config files.
@@ -282,12 +282,12 @@ module Jekyll
           projects << file
         end
       end
-      
+
       projects
     end
-    
+
   end
-  
+
 
   # Sub-class Jekyll::StaticFile to allow recovery from an unimportant exception when writing zip files.
   class StaticProjectFile < StaticFile
@@ -296,8 +296,8 @@ module Jekyll
       true
     end
   end
-  
-  
+
+
   # Jekyll hook - the generate method is called by jekyll, and generates all the project pages.
   class GenerateProjects < Generator
     safe true
@@ -308,5 +308,5 @@ module Jekyll
     end
 
   end
-  
+
 end
