@@ -143,7 +143,7 @@ module Jekyll
       if index.render?
         index.render(self.layouts, site_payload)
         index.write(self.dest)
-        # Record the fact that this pages has been added, otherwise Site::cleanup will remove it.
+        # Record the fact that this page has been added, otherwise Site::cleanup will remove it.
         self.pages << index
       end
 
@@ -152,7 +152,7 @@ module Jekyll
       if feed.render?
         feed.render(self.layouts, site_payload)
         feed.write(self.dest)
-        # Record the fact that this pages has been added, otherwise Site::cleanup will remove it.
+        # Record the fact that this page has been added, otherwise Site::cleanup will remove it.
         self.pages << feed
       end
     end
@@ -186,6 +186,9 @@ module Jekyll
 
     # Processes the given dir and removes leading and trailing slashes. Falls
     # back on the default if no dir is provided.
+    #
+    #  +base_dir+ is the root category directory.
+    #  +category+ is the name of the category, to be converted into a URL slug.
     def self.category_dir(base_dir, category)
       base_dir = (base_dir || CATEGORY_DIR).gsub(/^\/*(.*)\/*$/, '\1')
       category = category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
