@@ -91,7 +91,9 @@ Usage
 
 To use it, simply drop the _generate_categories.rb_ script into the \_plugins directory of your Jekyll site.
 
-You should also copy the [category_index.html](https://github.com/recurser/jekyll-plugins/blob/master/layouts/category_index.html) file to the _\_layouts_ directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+You should also copy the [category_index.html](https://github.com/recurser/jekyll-plugins/blob/master/_layouts/category_index.html) file to the _\_layouts_ directory of your own project. This file is provided as an example layout, and obviously you can change the HTML above as you see fit.
+
+You can also (optionally) generate an _atom.xml_ feed for each category. To do this, copy the [category_feed.xml](https://github.com/recurser/jekyll-plugins/blob/master/_includes/custom/category_feed.xml) file to the _\_includes/custom_ directory of your own project. You'll also need to copy the [octopress_filters.rb](https://github.com/recurser/jekyll-plugins/blob/master/_plugins/octopress_filters.rb) file into the _\_plugins_ directory of your project, as the _category_feed.xml_ requires a couple of extra filters.
 
 How it works
 ------------
@@ -135,6 +137,9 @@ Available YAML settings
 Change history
 ==============
 
+* **Version 0.2.1 (2012-10-15)** : Merged some updates from [Octopress](https://github.com/imathis/octopress/blob/master/plugins/category_generator.rb) back in.
+  * Add support for _atom.xml_ feed generation for categories.
+  * Improved handling of multibyte and multi-word category names in URLs.
 * **Version 0.2.0 (2012-10-14)** :
   * Add support for priority in _generate_sitemap.rb_ (thanks [hez](https://github.com/hez)!).
   * Remove hard-coded category directory in _generate_categories.rb_ (thanks [ghinda](https://github.com/ghinda) and [MrWerewolf](https://github.com/MrWerewolf)!).
