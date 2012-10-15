@@ -1,7 +1,7 @@
 # Jekyll sitemap page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
-# Version: 0.2.0 (201210141656)
+# Version: 0.2.1 (201210151921)
 #
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)

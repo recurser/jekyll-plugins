@@ -137,6 +137,9 @@ Available YAML settings
 Change history
 ==============
 
+* **Version 0.2.1 (2012-10-15)** : Merged some updates from [Octopress](https://github.com/imathis/octopress/blob/master/plugins/category_generator.rb) back in.
+  * Add support for _atom.xml_ feed generation for categories.
+  * Improved handling of multibyte and multi-word category names in URLs.
 * **Version 0.2.0 (2012-10-14)** :
   * Add support for priority in _generate_sitemap.rb_ (thanks [hez](https://github.com/hez)!).
   * Remove hard-coded category directory in _generate_categories.rb_ (thanks [ghinda](https://github.com/ghinda) and [MrWerewolf](https://github.com/MrWerewolf)!).
