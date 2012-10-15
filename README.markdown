@@ -7,7 +7,7 @@ This is a collection of [Jekyll](https://github.com/mojombo/jekyll) plugins and 
 License
 -------
 
-The plugins are distributed under the [MIT License](http://en.wikipedia.org/wiki/MIT_license.) See the [License](https://github.com/recurser/jekyll-plugins/blob/master/LICENSE) file for details.
+The plugins are distributed under the [MIT License](http://en.wikipedia.org/wiki/MIT_license). See the [License](https://github.com/recurser/jekyll-plugins/blob/master/LICENSE) file for details.
 
 Installation
 ------------
