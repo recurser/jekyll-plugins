@@ -2,7 +2,7 @@
 About
 -----
 
-This is a collection of [Jekyll](https://github.com/mojombo/jekyll) plugins and generators that I've written for use on [recursive-design.com](http://recursive-design.com/).
+This is a collection of [Jekyll](https://github.com/mojombo/jekyll) plugins and generators that I've written for use on [daveperrett.com](http://daveperrett.com/).
 
 License
 -------
@@ -30,7 +30,7 @@ generate_projects.rb
 
 A generator that creates project pages for Jekyll sites from git repositories.
 
-This was inspired by the project pages on GitHub, which use the project _README_ file as the index page. It takes git repositories, and automatically builds project pages for them using the _README_ file, along with downloadable zipped copies of the projects themselves (for example, the project page for this [plugin repository](http://recursive-design.com/projects/jekyll-plugins/) is auto-generated with this plugin).
+This was inspired by the project pages on GitHub, which use the project _README_ file as the index page. It takes git repositories, and automatically builds project pages for them using the _README_ file, along with downloadable zipped copies of the projects themselves (for example, the project page for this [plugin repository](http://www.daveperrett.com/articles/2010/12/08/jekyll-plugins-for-categories-projects-and-sitemaps/) is auto-generated with this plugin).
 
 Usage
 -----
@@ -40,7 +40,7 @@ To use it, simply drop the _generate_projects.rb_ script into the _\_plugins_ di
 ``` yaml
 layout:     default
 title:      Jekyll Plugins
-repository: git://recursive-design.com/jekyll-plugins.git
+repository: git://daveperrett.com/jekyll-plugins.git
 published:  true
 ```
 
@@ -84,7 +84,7 @@ OS X 'Something.app' application bundle.
 generate_categories.rb
 ======================
 
-A generator that creates category pages for Jekyll sites (for example our [plugin category](http://recursive-design.com/blog/category/plugin/)).
+A generator that creates category pages for Jekyll sites (for example our [plugin category](http://www.daveperrett.com/articles/categories/plugin/)).
 
 Usage
 -----
@@ -116,7 +116,7 @@ Available \_config.yml settings
 generate_sitemap.rb
 ===================
 
-A simple generator that creates a _sitemap.xml_ page for Jekyll sites, suitable for submission to Google etc (for example the _sitemap.xml_ for [recursive-design.com](http://recursive-design.com/sitemap.xml).
+A simple generator that creates a _sitemap.xml_ page for Jekyll sites, suitable for submission to Google etc (for example the _sitemap.xml_ for [daveperrett.com](http://www.daveperrett.com/sitemap.xml).
 
 Usage
 -----
@@ -170,7 +170,7 @@ Once you've made your commits:
 Author
 ======
 
-Dave Perrett :: mail@recursive-design.com :: [@recurser](http://twitter.com/recurser)
+Dave Perrett :: hello@daveperrett.com :: [@daveperrett](http://twitter.com/daveperrett)
 
 
 Copyright
