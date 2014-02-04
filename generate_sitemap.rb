@@ -82,9 +82,10 @@ module Jekyll
       # First, try to find any stand-alone pages.
       site.pages.each { |page|
         path = page.subfolder + '/' + page.name
+        filepath = File.join(site.config['destination'], page.subfolder, page.name)
 
         # Skip files that don't exist yet (e.g. paginator pages)
-        next unless FileTest.exist?(path)
+        next unless FileTest.exist?(filepath)
 
         mod_date = File.mtime(site.source + path)
 
