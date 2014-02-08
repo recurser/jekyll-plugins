@@ -93,11 +93,11 @@ module Jekyll
           path = page.permalink
         else
           # Be smart about the output filename.
-          path.gsub!(/.md$/, '.html')
+          path.gsub!(/\.(md|markdown|haml|slim|textile)$/, '.html')
         end
 
         # Ignore SASS, SCSS, and CSS files
-        next if path =~ /.(sass|scss|css)$/
+        next if path =~ /\.(sass|scss|css)$/
 
         # Remove the trailing 'index.html' if there is one, and just output the folder name.
         path = path[0..-11] if path =~ /\/index.html$/
