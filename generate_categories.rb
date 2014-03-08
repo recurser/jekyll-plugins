@@ -1,6 +1,6 @@
 # encoding: utf-8
 #
-# Jekyll category page generator.
+# Jekyll post attribute (category and tag) page generator.
 # http://recursive-design.com/projects/jekyll-plugins/
 #
 # Version: 0.2.4 (201210160037)
@@ -8,11 +8,12 @@
 # Copyright (c) 2010 Dave Perrett, http://recursive-design.com/
 # Licensed under the MIT license (http://www.opensource.org/licenses/mit-license.php)
 #
-# A generator that creates category pages for jekyll sites.
+# A generator that creates post attribute (category and tag) pages for jekyll sites.
 #
-# To use it, simply drop this script into the _plugins directory of your Jekyll site. You should
-# also create a file called 'category_index.html' in the _layouts directory of your jekyll site
-# with the following contents (note: you should remove the leading '# ' characters):
+# To use it, simply drop this script into the _plugins directory of your Jekyll
+# site. You should also create a file called 'category_index.html' and one
+# called 'tag_index.html' in the _layouts directory of your jekyll site with the
+# following contents (note: you should remove the leading '# ' characters):
 #
 # ================================== COPY BELOW THIS LINE ==================================
 # ---
@@ -24,49 +25,58 @@
 # {% for post in site.categories[page.category] %}
 #     <div>{{ post.date | date_to_html_string }}</div>
 #     <h2><a href="{{ post.url }}">{{ post.title }}</a></h2>
-#     <div class="categories">Filed under {{ post.categories | category_links }}</div>
+#     <div class="categories">Filed under {{ post.categories | attribute_links: "category" }}</div>
 # {% endfor %}
 # </ul>
 # ================================== COPY ABOVE THIS LINE ==================================
 #
+# Make a layout file called 'tag_index.html' substituting the word 'tag' for
+# 'category' in the content above.
+#
 # You can alter the _layout_ setting if you wish to use an alternate layout, and obviously you
 # can change the HTML above as you see fit.
 #
-# When you compile your jekyll site, this plugin will loop through the list of categories in your
-# site, and use the layout above to generate a page for each one with a list of links to the
-# individual posts.
+# When you compile your jekyll site, this plugin will loop through the list of
+# categories and tags in your site, and use the layout above to generate a page
+# for each one with a list of links to the individual posts.
 #
-# You can also (optionally) generate an atom.xml feed for each category. To do this, copy
+# You can also (optionally) generate an atom.xml feed for each category and tag. To do this, copy
 # the category_feed.xml file to the _includes/custom directory of your own project
 # (https://github.com/recurser/jekyll-plugins/blob/master/_includes/custom/category_feed.xml).
 # You'll also need to copy the octopress_filters.rb file into the _plugins directory of your
 # project as the category_feed.xml requires a couple of extra filters
 # (https://github.com/recurser/jekyll-plugins/blob/master/_plugins/octopress_filters.rb).
 #
+# Repeat for a tag_feed.xml file as well.
+#
 # Included filters :
-# - category_links:      Outputs the list of categories as comma-separated <a> links.
+# - attribute_links:     Outputs the list of categories or tags as comma-separated <a> links.
 # - date_to_html_string: Outputs the post.date as formatted html, with hooks for CSS styling.
 #
 # Available _config.yml settings :
 # - category_dir:          The subfolder to build category pages in (default is 'categories').
 # - category_title_prefix: The string used before the category name in the page title (default is
 #                          'Category: ').
+# - tag_dir:               The subfolder to build tag pages in (default is 'tags').
+# - tag_title_prefix:      The string used before the tag name in the page title (default is
+#                          'Tag: ').
 module Jekyll
 
-  # The CategoryIndex class creates a single category page for the specified category.
-  class CategoryPage < Page
+  # The AttributePage class creates a single attribute page for the specified attribute.
+  class AttributePage < Page
 
-    # Initializes a new CategoryIndex.
+    # Initializes a new AttributePage.
     #
     #  +template_path+ is the path to the layout template to use.
     #  +site+          is the Jekyll Site instance.
     #  +base+          is the String path to the <source>.
-    #  +category_dir+  is the String path between <source> and the category folder.
-    #  +category+      is the category currently being processed.
-    def initialize(template_path, name, site, base, category_dir, category)
+    #  +attribute_dir+ is the String path between <source> and the attribute folder.
+    #  +attr_type+     is the symbol specifying the attribute type (:category or :tag)
+    #  +attribute+     is the attribute currently being processed.
+    def initialize(template_path, name, site, base, attribute_dir, attr_type, attribute)
       @site  = site
       @base  = base
-      @dir   = category_dir
+      @dir   = attribute_dir
       @name  = name
 
       self.process(name)
@@ -77,13 +87,13 @@ module Jekyll
         template        = File.basename(template_path)
         # Read the YAML data from the layout page.
         self.read_yaml(template_dir, template)
-        self.data['category']    = category
+        self.data[attr_type.to_s] = attribute
         # Set the title for this page.
-        title_prefix             = site.config['category_title_prefix'] || 'Category: '
-        self.data['title']       = "#{title_prefix}#{category}"
+        title_prefix              = site.config["#{attr_type}_title_prefix"] || "#{attr_type.capitalize}: "
+        self.data['title']        = "#{title_prefix}#{attribute}"
         # Set the meta-description for this page.
-        meta_description_prefix  = site.config['category_meta_description_prefix'] || 'Category: '
-        self.data['description'] = "#{meta_description_prefix}#{category}"
+        meta_description_prefix   = site.config["#{attr_type}_meta_description_prefix"] || "#{attr_type.capitalize}: "
+        self.data['description']  = "#{meta_description_prefix}#{attribute}"
       else
         @perform_render = false
       end
@@ -95,37 +105,41 @@ module Jekyll
 
   end
 
-  # The CategoryIndex class creates a single category page for the specified category.
-  class CategoryIndex < CategoryPage
+  # The AttributeIndex class creates a single attribute page for the specified attribute.
+  class AttributeIndex < AttributePage
 
-    # Initializes a new CategoryIndex.
+    # Initializes a new AttributeIndex.
     #
-    #  +site+         is the Jekyll Site instance.
-    #  +base+         is the String path to the <source>.
-    #  +category_dir+ is the String path between <source> and the category folder.
-    #  +category+     is the category currently being processed.
-    def initialize(site, base, category_dir, category)
-      template_path = File.join(base, '_layouts', 'category_index.html')
-      super(template_path, 'index.html', site, base, category_dir, category)
+    #  +site+          is the Jekyll Site instance.
+    #  +base+          is the String path to the <source>.
+    #  +attribute_dir+ is the String path between <source> and the attribute folder.
+    #  +attr_type+     is the symbol specifying the attribute type (:category or :tag)
+    #  +attribute+     is the attribute currently being processed.
+    def initialize(site, base, attribute_dir, attr_type, attribute)
+      layout = "#{attr_type}_index.html"
+      template_path = File.join(base, '_layouts', layout)
+      super(template_path, 'index.html', site, base, attribute_dir, attr_type, attribute)
     end
 
   end
 
-  # The CategoryFeed class creates an Atom feed for the specified category.
-  class CategoryFeed < CategoryPage
+  # The AttributeFeed class creates an Atom feed for the specified attribute.
+  class AttributeFeed < AttributePage
 
-    # Initializes a new CategoryFeed.
+    # Initializes a new AttributeFeed.
     #
-    #  +site+         is the Jekyll Site instance.
-    #  +base+         is the String path to the <source>.
-    #  +category_dir+ is the String path between <source> and the category folder.
-    #  +category+     is the category currently being processed.
-    def initialize(site, base, category_dir, category)
-      template_path = File.join(base, '_includes', 'custom', 'category_feed.xml')
-      super(template_path, 'atom.xml', site, base, category_dir, category)
+    #  +site+          is the Jekyll Site instance.
+    #  +base+          is the String path to the <source>.
+    #  +attribute_dir+ is the String path between <source> and the attribute folder.
+    #  +attr_type+     is the symbol specifying the attribute type (:category or :tag)
+    #  +attribute+     is the attribute currently being processed.
+    def initialize(site, base, attribute_dir, attr_type, attribute)
+      layout = "#{attr_type}_feed.xml"
+      template_path = File.join(base, '_includes', 'custom', layout)
+      super(template_path, 'atom.xml', site, base, attribute_dir, attr_type, attribute)
 
       # Set the correct feed URL.
-      self.data['feed_url'] = "#{category_dir}/#{name}" if render?
+      self.data['feed_url'] = "#{attribute_dir}/#{name}" if render?
     end
 
   end
@@ -133,93 +147,97 @@ module Jekyll
   # The Site class is a built-in Jekyll class with access to global site config information.
   class Site
 
-    # Creates an instance of CategoryIndex for each category page, renders it, and
+    # Creates an instance of AttributeIndex for each attribute page, renders it, and
     # writes the output to a file.
     #
-    #  +category+ is the category currently being processed.
-    def write_category_index(category)
-      target_dir = GenerateCategories.category_dir(self.config['category_dir'], category)
-      index      = CategoryIndex.new(self, self.source, target_dir, category)
+    #  +attr_type+ is the symbol specifying the attribute type (:category or :tag)
+    #  +attribute+ is the attribute currently being processed.
+    def write_attribute_index(attr_type, attribute)
+      dir_config_key = "#{attr_type}_dir"
+      target_dir = GenerateAttributes.attribute_dir(self.config[dir_config_key], attr_type, attribute)
+      index      = AttributeIndex.new(self, self.source, target_dir, attr_type, attribute)
       if index.render?
-        index.render(self.layouts, site_payload)
-        index.write(self.dest)
         # Record the fact that this pages has been added, otherwise Site::cleanup will remove it.
         self.pages << index
       end
 
       # Create an Atom-feed for each index.
-      feed = CategoryFeed.new(self, self.source, target_dir, category)
+      feed = AttributeFeed.new(self, self.source, target_dir, attr_type, attribute)
       if feed.render?
-        feed.render(self.layouts, site_payload)
-        feed.write(self.dest)
         # Record the fact that this pages has been added, otherwise Site::cleanup will remove it.
         self.pages << feed
       end
     end
 
-    # Loops through the list of category pages and processes each one.
-    def write_category_indexes
-      if self.layouts.key? 'category_index'
-        self.categories.keys.each do |category|
-          self.write_category_index(category)
+    # Loops through the list of attribute pages and processes each one.
+    def write_attribute_indexes(attr_type, attributes)
+      layout = "#{attr_type}_index"
+
+      if self.layouts.key? layout
+        attributes.each do |attribute|
+          self.write_attribute_index(attr_type, attribute)
         end
 
       # Throw an exception if the layout couldn't be found.
       else
-        throw "No 'category_index' layout found."
+        throw "No '#{layout}' layout found."
       end
     end
 
   end
 
 
-  # Jekyll hook - the generate method is called by jekyll, and generates all of the category pages.
-  class GenerateCategories < Generator
+  # Jekyll hook - the generate method is called by jekyll, and generates all of the attribute pages.
+  class GenerateAttributes < Generator
     safe true
     priority :low
 
-    CATEGORY_DIR = 'categories'
+    DEFAULT_DIRS = {
+        :category => 'categories',
+        :tag      => 'tags'
+    }
 
     def generate(site)
-      site.write_category_indexes
+      site.write_attribute_indexes(:category, site.categories.keys)
+      site.write_attribute_indexes(:tag, site.tags.keys)
     end
 
     # Processes the given dir and removes leading and trailing slashes. Falls
     # back on the default if no dir is provided.
-    def self.category_dir(base_dir, category)
-      base_dir = (base_dir || CATEGORY_DIR).gsub(/^\/*(.*)\/*$/, '\1')
-      category = category.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
-      File.join(base_dir, category)
+    def self.attribute_dir(base_dir, attr_type, attribute)
+      base_dir = (base_dir || DEFAULT_DIRS[attr_type]).gsub(/^\/*(.*)\/*$/, '\1')
+      attribute = attribute.gsub(/_|\P{Word}/, '-').gsub(/-{2,}/, '-').downcase
+      File.join(base_dir, attribute)
     end
 
   end
 
 
-  # Adds some extra filters used during the category creation process.
+  # Adds some extra filters used during the attribute creation process.
   module Filters
 
-    # Outputs a list of categories as comma-separated <a> links. This is used
-    # to output the category list for each post on a category page.
+    # Outputs a list of attributes as comma-separated <a> links. This is used
+    # to output the attribute list for each post on a attribute page.
     #
-    #  +categories+ is the list of categories to format.
+    #  +attributes+ is the list of attributes to format.
     #
     # Returns string
-    def category_links(categories)
-      base_dir = @context.registers[:site].config['category_dir']
-      categories = categories.sort!.map do |category|
-        category_dir = GenerateCategories.category_dir(base_dir, category)
-        # Make sure the category directory begins with a slash.
-        category_dir = "/#{category_dir}" unless category_dir =~ /^\//
-        "<a class='category' href='#{category_dir}/'>#{category}</a>"
+    def attribute_links(attributes, attr_type)
+      base_dir = @context.registers[:site].config["#{attr_type}_dir"]
+      attributes = attributes.sort!.map do |attribute|
+        attr_dir = GenerateAttributes.attribute_dir(base_dir, attr_type.to_sym, attribute)
+        # Make sure the attribute directory begins with a slash.
+        attr_dir = "/#{attr_dir}" unless attr_dir =~ /^\//
+        "<a class='#{attr_type}' href='#{attr_dir}/'>#{attribute}</a>"
       end
 
-      case categories.length
+      case attributes.length
       when 0
         ""
       when 1
-        categories[0].to_s
+        attributes[0].to_s
       else
-        categories.join(', ')
+        attributes.join(', ')
       end
     end
 
