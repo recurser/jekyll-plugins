@@ -205,12 +205,19 @@ module Jekyll
     #
     # Returns string
     def category_links(categories)
+      site_base_url = @context.registers[:site].config['baseurl']
       base_dir = @context.registers[:site].config['category_dir']
       categories = categories.sort!.map do |category|
         category_dir = GenerateCategories.category_dir(base_dir, category)
-        # Make sure the category directory begins with a slash.
-        category_dir = "/#{category_dir}" unless category_dir =~ /^\//
-        "<a class='category' href='#{category_dir}/'>#{category}</a>"
+        # Remove the leading slash if there is one
+        category_dir = category_dir.gsub(/^\//, '')
+        # Use the site's baseurl if it is set, otherwise we 404
+        if not site_base_url.nil? and not site_base_url.empty?
+          base_url = site_base_url
+        else
+          base_url = "/"
+        end
+        "<a class='category' href='#{base_url}#{category_dir}/'>#{category}</a>"
       end
 
       case categories.length
